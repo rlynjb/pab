@@ -4,6 +4,7 @@ var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'indexPage',
     'login': 'loginPage',
+    'logout': 'logoutPage',
     'create': 'createAccountPage',
     'about': 'aboutPage'
   },
@@ -12,6 +13,10 @@ var AppRouter = Backbone.Router.extend({
   },
   loginPage: function() {
     this.view = new loginPageView();
+  },
+  logoutPage: function() {
+    // Logs out user
+    fire.unauth();
   },
   createAccountPage: function() {
     this.view = new createPageView();

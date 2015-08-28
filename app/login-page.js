@@ -37,17 +37,6 @@ var loginForm = Backbone.View.extend({
          * Once logged in success, redirect user to index
          * */
         console.log('success, user id is ', authData);
-        /*
-         * Get User data we only need
-         * */
-        var userAuthData = {
-          email: authData.password.email,
-          profileImg: authData.password.profileImageURL,
-          token: authData.token,
-          sessionExpire: authData.expires
-        };
-        document.cookie = "name=" + userAuthData.token + "; expires=" + userAuthData.sessionExpire + ";";
-        console.log('data data data ', userAuthData);
       }
     });
   }
