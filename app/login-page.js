@@ -40,6 +40,8 @@ var loginForm = Backbone.View.extend({
         // Navigate to index page
         Backbone.history.navigate('');
         var v = new indexPageView();
+
+        header.render();
       }
     });
   }

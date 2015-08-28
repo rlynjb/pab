@@ -14,11 +14,27 @@
   <header>
     <div class="container">
       <h1>pab <small> Backbone.js Photo-sharing app</small></h1>
-      <a href="/" class="btn btn-default">Home</a> <a href="#about" class="btn btn-default">About</a>
+      <br>
+      <div id="header-inner"></div>
     </div>
   </header>
 
   <div id="content" class="container"></div>
+
+  <script type="text/template" id="header-inner-content">
+    <a href="/" class="btn btn-default">Home</a>
+    <a href="#about" class="btn btn-default">About</a>
+
+    <% if (isUserLoggedIn) { %>
+      <a href="#users" class="btn btn-default">All Users</a>
+      <a href="#users/id" class="btn btn-default">My Profile</a>
+      <a href="#upload" class="btn btn-default">Upload</a>
+      <a href="#logout" class="btn btn-default">Log Out</a>
+      <br>
+      <br>
+      Hello <b>username</b>
+    <% } %>
+  </script>
 
   <script type="text/template" id="index-page">
     <h2>Hello User</h2>

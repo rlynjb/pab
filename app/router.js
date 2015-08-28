@@ -24,6 +24,7 @@ var AppRouter = Backbone.Router.extend({
     fire.unauth();
     Backbone.history.navigate('login');
     this.view = new loginPageView();
+    header.render();
   },
   createAccountPage: function() {
     this.view = new createPageView();

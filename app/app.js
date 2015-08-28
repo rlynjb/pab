@@ -24,6 +24,19 @@ var PageMixin = {
   }
 };
 
+var headerView = Backbone.View.extend({
+  el: '#header-inner',
+  template: _.template( $('#header-inner-content').html() ),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html( this.template );
+    return this;
+  }
+});
+var header = new headerView();
+
 var indexPageView = Backbone.View.extend({
   id: 'index-page',
   template: _.template( $('#index-page').html() ),
