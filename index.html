@@ -27,22 +27,25 @@
 
   <script type="text/template" id="login-page">
     <h1> Login In </h1>
-    <form method="post" action="/login">
-      <p>Username: <input name='username' type='text' /></p>
-      <p>Password: <input name='password' type='password' /></p>
-      <button> Login </button>
-    </form>
+    <form id="login-form-wrapper"></form>
+    <a href="?#create">New User</a>
+  </script>
 
-    <a href="#create">New User</a>
+  <script type="text/template" id="login-form">
+    <p>Username: <input id='email' type='text' /></p>
+    <p>Password: <input id='password' type='password' /></p>
+    <button id="submitUser" class="btn btn-default"> Login </button>
   </script>
 
   <script type="text/template" id="create-account-page">
     <h1> Create Account </h1>
-    <form method="post" action="/create">
-      <p>Username: <input name='username' type='text' /></p>
-      <p>Password: <input name='password' type='password' /></p>
-      <button> Create </button>
-    </form>
+    <form id="create-new-user-wrapper"></form>
+  </script>
+
+  <script type="text/template" id="create-new-user-form">
+    <p>Email: <input id="email" type='text' /></p>
+    <p>Password: <input id="password" type='password' /></p>
+    <button id="submitNewUser" class="btn btn-default"> Create </button>
   </script>
 
   <script type="text/template" id="about-page">
@@ -54,5 +57,8 @@
   <script src="bower_components/backbone/backbone-min.js"></script>
   <script src="bower_components/firebase/firebase.js"></script>
   <script src="app/app.js"></script>
+  <script src="app/login-page.js"></script>
+  <script src="app/create-new-user-page.js"></script>
+  <script src="app/router.js"></script>
 </body>
 </html>
