@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!--
   <link rel="stylesheet" type="text/css" href="app/main.css">
+  -->
 </head>
 
 <body>
@@ -18,18 +20,34 @@
 
   <div id="content" class="container"></div>
 
-  <h1> Sign In </h1>
-  <form method="post" action="/login">
-    <p>Username: <input name='username' type='text' /></p>
-    <p>Password: <input name='password' type='password' /></p>
-    <button> Login </button>
-  </form>
-  <h1> Create Account </h1>
-  <form method="post" action="/create">
-    <p>Username: <input name='username' type='text' /></p>
-    <p>Password: <input name='password' type='password' /></p>
-    <button> Create </button>
-  </form>
+  <script type="text/template" id="index-page">
+    <h2>Hello User</h2>
+    <a href="#logout">Log Out</a>
+  </script>
+
+  <script type="text/template" id="login-page">
+    <h1> Login In </h1>
+    <form method="post" action="/login">
+      <p>Username: <input name='username' type='text' /></p>
+      <p>Password: <input name='password' type='password' /></p>
+      <button> Login </button>
+    </form>
+
+    <a href="#create">New User</a>
+  </script>
+
+  <script type="text/template" id="create-account-page">
+    <h1> Create Account </h1>
+    <form method="post" action="/create">
+      <p>Username: <input name='username' type='text' /></p>
+      <p>Password: <input name='password' type='password' /></p>
+      <button> Create </button>
+    </form>
+  </script>
+
+  <script type="text/template" id="about-page">
+    <p>this photo-sharing app is for learning purpose only</p>
+  </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
