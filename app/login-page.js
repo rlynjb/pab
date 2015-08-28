@@ -37,6 +37,9 @@ var loginForm = Backbone.View.extend({
          * Once logged in success, redirect user to index
          * */
         console.log('success, user id is ', authData);
+        // Navigate to index page
+        Backbone.history.navigate('');
+        var v = new indexPageView();
       }
     });
   }

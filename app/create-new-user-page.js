@@ -36,6 +36,10 @@ var createNewUserForm = Backbone.View.extend({
         console.log('err in creating user', error);
       } else {
         console.log('success, user id is ', userData.uid);
+
+        // Navigate to index page
+        Backbone.history.navigate('login');
+        var l = new loginPageView();
       }
     });
   }

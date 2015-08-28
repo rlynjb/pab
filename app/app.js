@@ -1,11 +1,14 @@
 var fire = new Firebase('https://pab.firebaseio.com');
+var isUserLoggedIn = false;
 
 // Callback which logs the current auth state
 function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    isUserLoggedIn = true;
   } else {
     console.log("User is logged out");
+    isUserLoggedIn = false;
   }
 }
 // Register the callback to be fired every time auth state changes

@@ -9,7 +9,12 @@ var AppRouter = Backbone.Router.extend({
     'about': 'aboutPage'
   },
   indexPage: function() {
-    this.view = new indexPageView();
+    if (!isUserLoggedIn) {
+      Backbone.history.navigate('login');
+      this.view = new loginPageView();
+    } else {
+      this.view = new indexPageView();
+    }
   },
   loginPage: function() {
     this.view = new loginPageView();
@@ -17,6 +22,8 @@ var AppRouter = Backbone.Router.extend({
   logoutPage: function() {
     // Logs out user
     fire.unauth();
+    Backbone.history.navigate('login');
+    this.view = new loginPageView();
   },
   createAccountPage: function() {
     this.view = new createPageView();
