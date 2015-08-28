@@ -1,0 +1,22 @@
+{
+  "name": "pab",
+  "version": "1.0.0",
+  "description": "a photo-sharing app",
+  "main": "app.js",
+  "devDependencies": {
+    "js-dev-server": "^0.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlynjb/pab.git"
+  },
+  "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/rlynjb/pab/issues"
+    },
+  "homepage": "https://github.com/rlynjb/pab#readme"
+}
