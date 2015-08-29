@@ -1,6 +1,7 @@
 var fire = new Firebase('https://pab.firebaseio.com');
 var isUserLoggedIn = false;
 
+
 // Callback which logs the current auth state
 function authDataCallback(authData) {
   if (authData) {
@@ -14,6 +15,7 @@ function authDataCallback(authData) {
 // Register the callback to be fired every time auth state changes
 fire.onAuth(authDataCallback);
 
+
 var PageMixin = {
   iniPage: function(e) {
     $('#content').html( e.el );
@@ -23,6 +25,7 @@ var PageMixin = {
     e.$el.html( e.template );
   }
 };
+
 
 var headerView = Backbone.View.extend({
   el: '#header-inner',
