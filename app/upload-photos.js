@@ -14,7 +14,9 @@ var uploadPhotoPageView = Backbone.View.extend({
 var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
   template: _.template( $('#add-photo-form-content').html() ),
-  initialize: function() {
+  initialize: function(options) {
+    // we are passing Photos Collection as a initialize param
+    this.photos = this.options
     this.render();
   },
   render: function() {
@@ -22,9 +24,17 @@ var addPhotoView = Backbone.View.extend({
     return this;
   },
   events: {
-    'click #submitPhoto': 'submitPhoto'
+    'click #uploadPhoto': 'uploadPhoto'
   },
-  submitPhoto: function() {
-    alert('submitting photo');
+  uploadPhoto: function(e) {
+    // this prevents its default action
+    e.preventDefault();
+    // set new photo to new instantiated Photo Model
+    var photo = new Photo({
+      file: $('#imageUpload')[0].files[0],
+      caption: $('#imageCaption').val()
+    });
+    // create new photo by calling Photos Collection create method
+    this.photos.create(photo, { wait: true });
   }
 });
