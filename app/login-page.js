@@ -33,21 +33,9 @@ var loginForm = Backbone.View.extend({
       if (error) {
         console.log('err in creating user', error);
       } else {
-        /*
-         * Once logged in success, redirect user to index
-         * */
-        console.log('success, user id is ', authData);
         var userData = {
           email: authData.password.email
         }
-
-        /*
-         * TODO:
-         * check out how to pass data from here to header view
-         * might need to set initilize on headerView or
-         * checkout backbonejs get and set methods
-         * */
-        console.log(userData);
 
         // Navigate to index page
         Backbone.history.navigate('');

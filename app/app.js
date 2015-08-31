@@ -1,6 +1,15 @@
 var fire = new Firebase('https://pab.firebaseio.com');
 var isUserLoggedIn = false;
 
+var PageMixin = {
+  iniPage: function(e) {
+    $('#content').html( e.el );
+    e.render(); 
+  },
+  renderPage: function(e) {
+    e.$el.html( e.template );
+  }
+};
 
 // Callback which logs the current auth state
 function authDataCallback(authData) {
@@ -16,25 +25,20 @@ function authDataCallback(authData) {
 fire.onAuth(authDataCallback);
 
 
-var PageMixin = {
-  iniPage: function(e) {
-    $('#content').html( e.el );
-    e.render(); 
-  },
-  renderPage: function(e) {
-    e.$el.html( e.template );
-  }
-};
-
-
 var headerView = Backbone.View.extend({
   el: '#header-inner',
   template: _.template( $('#header-inner-content').html() ),
   initialize: function() {
+    var u = localStorage.getItem('firebase:session::pab');
+    var parseU = JSON.parse(u);
+    this.userInfo = {
+      email: parseU.password.email
+    }
+
     this.render();
   },
   render: function() {
-    this.$el.html( this.template );
+    this.$el.html( this.template(this.userInfo) );
     return this;
   }
 });
@@ -61,3 +65,6 @@ var aboutPageView = Backbone.View.extend({
     PageMixin.renderPage(this);
   }
 });
+
+
+
