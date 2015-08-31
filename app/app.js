@@ -41,7 +41,8 @@ var headerView = Backbone.View.extend({
   },
   render: function() {
     if (isUserLoggedIn) {
-      this.$el.html( this.template(this.userInfo) );
+      var tplContent = this.template(this.userInfo);
+      this.$el.html( tplContent );
     } else {
       this.$el.html( this.template(this) );
     }
