@@ -13,7 +13,7 @@ var uploadPhotoPageView = Backbone.View.extend({
 
 var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
-  template: '#add-photo-form-content',
+  template: _.template( $('#add-photo-form-content').html() ),
   initialize: function() {
     this.render();
   },
