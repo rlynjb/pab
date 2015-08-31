@@ -69,6 +69,3 @@ var aboutPageView = Backbone.View.extend({
     PageMixin.renderPage(this);
   }
 });
-
-
-

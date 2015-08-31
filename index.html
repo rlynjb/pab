@@ -28,7 +28,7 @@
     <% if (isUserLoggedIn) { %>
       <a href="#users" class="btn btn-default">All Users</a>
       <a href="#users/id" class="btn btn-default">My Profile</a>
-      <a href="#upload" class="btn btn-default">Upload</a>
+      <a href="#upload-photo" class="btn btn-default">Upload</a>
       <a href="#logout" class="btn btn-default">Log Out</a>
       <br>
       <br>
@@ -66,6 +66,18 @@
 
   <script type="text/template" id="about-page">
     <p>this photo-sharing app is for learning purpose only</p>
+  </script>
+
+  <script type="text/template" id="upload-photo-page">
+    <h3>Upload Photos</h3>
+
+    <form id="add-photo-form"></form>
+  </script>
+
+  <script type="text/template" id="add-photo-form-content">
+    <p>Photo: <input type="file" id="imageUpload" /></p>
+    <p>Caption: <input type="text" id="imageCaption" /></p>
+    <button id="submitPhoto"> Upload </button>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
