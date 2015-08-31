@@ -29,16 +29,22 @@ var headerView = Backbone.View.extend({
   el: '#header-inner',
   template: _.template( $('#header-inner-content').html() ),
   initialize: function() {
-    var u = localStorage.getItem('firebase:session::pab');
-    var parseU = JSON.parse(u);
-    this.userInfo = {
-      email: parseU.password.email
+    if (isUserLoggedIn) {
+      var u = localStorage.getItem('firebase:session::pab');
+      var parseU = JSON.parse(u);
+      this.userInfo = {
+        email: parseU.password.email
+      }
     }
 
     this.render();
   },
   render: function() {
-    this.$el.html( this.template(this.userInfo) );
+    if (isUserLoggedIn) {
+      this.$el.html( this.template(this.userInfo) );
+    } else {
+      this.$el.html( this.template(this) );
+    }
     return this;
   }
 });
