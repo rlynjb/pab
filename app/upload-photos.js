@@ -3,7 +3,8 @@ var Photo = Backbone.Model.extend({
 });
 
 var Photos = Backbone.Collection.extend({
-  model: Photo
+  model: Photo,
+  url: apiUrl + '/photos.json'
 });
 
 var uploadPhotoPageView = Backbone.View.extend({
@@ -16,6 +17,7 @@ var uploadPhotoPageView = Backbone.View.extend({
     PageMixin.renderPage(this);
 
     var f = new addPhotoView();
+    var g = new displayPhotoView({ photos: new Photos() });
   }
 });
 
@@ -58,8 +60,6 @@ var addPhotoView = Backbone.View.extend({
         caption: $('#imageCaption').val()
       });
 
-      console.log(photo);
-
       // create new photo by calling Photos Collection create method
       tt.photos.create(photo, { wait: true });
 
@@ -67,5 +67,42 @@ var addPhotoView = Backbone.View.extend({
       tt.el.reset();
     };
     reader.readAsDataURL(rawImg);
+  }
+});
+
+var displayPhotoView = Backbone.View.extend({
+  el: '#photo-list',
+  initialize: function(options) {
+    this.photos = options.photos;
+
+    this.photos.fetch();
+    this.listenTo(this.photos, 'sync', this.render);
+  },
+  render: function() {
+    /*
+     * TODO
+     * might need to code custom ajax in Collection
+     * coz Model ID is undefined due to Firebase'
+     * item ID convention, it is not by index but by
+     * random generated unique id
+     * */
+    console.log(this.photos);
+    this.photos.each(function(model) {
+      var p = new photoItemView({ model: model });
+      this.$el.append( p.render().el );
+    }, this);
+  }
+});
+
+var photoItemView = Backbone.View.extend({
+  tagName: 'li',
+  template: _.template( $('#photo-item').html() ),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    var html = this.template( this.model.toJSON() );
+    this.$el.html( html );
+    return this;
   }
 });
