@@ -1,4 +1,5 @@
 var fire = new Firebase('https://pab.firebaseio.com');
+var apiUrl = 'https://pab.firebaseio.com';
 var isUserLoggedIn = false;
 
 var PageMixin = {

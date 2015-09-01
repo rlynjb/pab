@@ -3,7 +3,8 @@
  * this is the model class's code
  * */
 var Photo = Backbone.Model.extend({
-  urlRoot: '/photos',
+  // this is temp url, for testing
+  urlRoot: apiUrl + '/photos.json'
   /*
    * NOTE:
    * - Backbone doesnt support AJAX file uploads, that is why
@@ -15,7 +16,7 @@ var Photo = Backbone.Model.extend({
    *   2nd, model instance
    *   3rd, options object
    * */
-  sync: function(method, model, options) {
+  //sync: function(method, model, options) {
     /*
      * TODO:
      * play around with this sync function
@@ -23,17 +24,17 @@ var Photo = Backbone.Model.extend({
      * this is where we convert image file to data url
      * https://github.com/firebase/firepano
      * */
-    console.log('crud method', method);
-    console.log('model passed on', model);
-    console.log('options', options);
-  }
+    //console.log('crud method', method);
+    //console.log('model passed on', model);
+    //console.log('options', options);
+  //}
 });
 
 /*
  * Testing purpose
  * */
 var fg = new Photo();
-console.log(fg.sync());
+console.log(fg);
 
 var Photos = Backbone.Collection.extend({
   model: Photo
@@ -88,6 +89,6 @@ var addPhotoView = Backbone.View.extend({
     this.photos.create(photo, { wait: true });
 
     // clears the form
-    //this.el.reset();
+    this.el.reset();
   }
 });
