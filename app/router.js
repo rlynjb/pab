@@ -7,7 +7,7 @@ var AppRouter = Backbone.Router.extend({
     'logout': 'logoutPage',
     'create': 'createAccountPage',
     'about': 'aboutPage',
-    'upload-photo': 'uploadPhotoPage'
+    'upload': 'uploadPhotoPage'
   },
   indexPage: function() {
     if (!isUserLoggedIn) {

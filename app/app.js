@@ -33,6 +33,11 @@ var headerView = Backbone.View.extend({
   },
   render: function() {
     if (isUserLoggedIn) {
+      /*
+       * TODO
+       * May need to transfer this to Model class instead
+       * May include advance stuff in Model, parse method
+       * */
       var u = localStorage.getItem('firebase:session::pab');
       var parseU = JSON.parse(u);
       var userInfo = {

@@ -6,9 +6,6 @@ var Photo = Backbone.Model.extend({
   urlRoot: '/photos',
   /*
    * NOTE:
-   * all models & collections uses Backbone.sync method
-   * sync is the method thats called everytime were
-   * reading or writing one or more models to or from the server
    * - Backbone doesnt support AJAX file uploads, that is why
    *   we have to overwrite sync function in model level only
    * - This is the method that is used for reading, updating, 
@@ -26,11 +23,17 @@ var Photo = Backbone.Model.extend({
      * this is where we convert image file to data url
      * https://github.com/firebase/firepano
      * */
-    console.log('1st param', method);
-    console.log('2nd param', model);
-    console.log('3rd param', options);
+    console.log('crud method', method);
+    console.log('model passed on', model);
+    console.log('options', options);
   }
 });
+
+/*
+ * Testing purpose
+ * */
+var fg = new Photo();
+console.log(fg.sync());
 
 var Photos = Backbone.Collection.extend({
   model: Photo
@@ -52,10 +55,14 @@ var uploadPhotoPageView = Backbone.View.extend({
 var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
   template: _.template( $('#add-photo-form-content').html() ),
-  initialize: function(options) {
+  initialize: function() {
     // we are passing Photos Collection as a initialize param
     // rather then instantiating new Photos Collection object
-    this.photos = this.options
+    /*
+     * Didnt take this approach, instantiated it instead.
+     * I'm still abit confuse on how this approach works or will benefit
+     * */
+    this.photos = new Photos();;
     this.render();
   },
   render: function() {
@@ -77,9 +84,7 @@ var addPhotoView = Backbone.View.extend({
      * TODO
      * find a way to console log Model sync method
      * */
-    console.log(photo);
     // create new photo by calling Photos Collection create method
-    // TODO uncomment when ready
     this.photos.create(photo, { wait: true });
 
     // clears the form
