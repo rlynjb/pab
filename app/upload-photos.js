@@ -46,23 +46,26 @@ var addPhotoView = Backbone.View.extend({
     /*
      * Convert image file to base64 string and post to firebase
      * */
+    var rawImg = $('#imageUpload')[0].files[0];
     var reader = new FileReader();
+    var tt = this;
     reader.onload = function() {
       var dataURL = reader.result;
-      console.log(dataURL);
+
+      // set new photo to new instantiated Photo Model
+      var photo = new Photo({
+        file: dataURL,
+        caption: $('#imageCaption').val()
+      });
+
+      console.log(photo);
+
+      // create new photo by calling Photos Collection create method
+      tt.photos.create(photo, { wait: true });
+
+      // clears the form
+      tt.el.reset();
     };
-    reader.readAsDataURL($('#imageUpload')[0].files[0]);
-
-    // set new photo to new instantiated Photo Model
-    var photo = new Photo({
-      file: $('#imageUpload')[0].files[0],
-      caption: $('#imageCaption').val()
-    });
-
-    // create new photo by calling Photos Collection create method
-    //this.photos.create(photo, { wait: true });
-
-    // clears the form
-    this.el.reset();
+    reader.readAsDataURL(rawImg);
   }
 });
