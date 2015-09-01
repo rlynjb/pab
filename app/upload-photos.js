@@ -2,9 +2,9 @@ var Photo = Backbone.Model.extend({
   urlRoot: apiUrl + '/photos.json'
 });
 
-var Photos = Backbone.Collection.extend({
+var Photos = Backbone.Firebase.Collection.extend({
   model: Photo,
-  url: apiUrl + '/photos.json'
+  firebase: apiUrl + '/photos.json'
 });
 
 var uploadPhotoPageView = Backbone.View.extend({
