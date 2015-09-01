@@ -42,15 +42,22 @@ var addPhotoView = Backbone.View.extend({
   uploadPhoto: function(e) {
     // this prevents its default action
     e.preventDefault();
+
+    /*
+     * Convert image file to base64 string and post to firebase
+     * */
+    var reader = new FileReader();
+    reader.onload = function() {
+      var dataURL = reader.result;
+      console.log(dataURL);
+    };
+    reader.readAsDataURL($('#imageUpload')[0].files[0]);
+
     // set new photo to new instantiated Photo Model
     var photo = new Photo({
       file: $('#imageUpload')[0].files[0],
       caption: $('#imageCaption').val()
     });
-
-    /*
-     * Convert image file to base64 string and post to firebase
-     * */
 
     // create new photo by calling Photos Collection create method
     //this.photos.create(photo, { wait: true });
