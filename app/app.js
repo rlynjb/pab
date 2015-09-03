@@ -16,7 +16,6 @@ var PageMixin = {
 function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
-    console.log(authData);
     isUserLoggedIn = true;
   } else {
     console.log("User is logged out");

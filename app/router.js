@@ -8,7 +8,7 @@ var AppRouter = Backbone.Router.extend({
     'create': 'createAccountPage',
     'about': 'aboutPage',
     'upload': 'uploadPhotoPage',
-    'user/*': 'userProfilePage'
+    'user/:uid': 'userProfilePage'
   },
   indexPage: function() {
     if (!isUserLoggedIn) {
@@ -42,8 +42,14 @@ var AppRouter = Backbone.Router.extend({
       this.view = new uploadPhotoPageView();
     }
   },
-  userProfilePage: function() {
-    
+  userProfilePage: function(uid) {
+    console.log('from router', uid);
+    if (!isUserLoggedIn) {
+      Backbone.history.navigate('login');
+      this.view = new loginPageView();
+    } else {
+      this.view = new userProfilePageView();
+    }
   }
 });
 

@@ -27,7 +27,7 @@
 
     <% if (isUserLoggedIn) { %>
       <a href="#users" class="btn btn-default">All Users</a>
-      <a href="#users/id" class="btn btn-default">My Profile</a>
+      <a href="#user/<%= uid %>" class="btn btn-default">My Profile</a>
       <a href="#upload" class="btn btn-default">Upload</a>
       <a href="#logout" class="btn btn-default">Log Out</a>
       <br>
@@ -37,11 +37,15 @@
     <% } %>
   </script>
 
+
+  <!-- HOME PAGE -->
   <script type="text/template" id="index-page">
     <h2>Hello User</h2>
     <a href="#logout">Log Out</a>
   </script>
 
+
+  <!-- LOGIN PAGE -->
   <script type="text/template" id="login-page">
     <h1> Login In </h1>
     <form id="login-form-wrapper"></form>
@@ -59,16 +63,22 @@
     <form id="create-new-user-wrapper"></form>
   </script>
 
+
+  <!-- NEW USER PAGE -->
   <script type="text/template" id="create-new-user-form">
     <p>Email: <input id="email" type='text' /></p>
     <p>Password: <input id="password" type='password' /></p>
     <button id="submitNewUser" class="btn btn-default"> Create </button>
   </script>
 
+
+  <!-- ABOUT THIS APP PAGE -->
   <script type="text/template" id="about-page">
     <p>this photo-sharing app is for learning purpose only</p>
   </script>
 
+
+  <!-- UPLOAD PHOTO PAGE -->
   <script type="text/template" id="upload-photo-page">
     <h3>Upload Photos</h3>
 
@@ -87,6 +97,12 @@
   <script type="text/template" id="photo-item">
     <img src="<%= file %>"/>
     <h2><%= caption %></h2>
+  </script>
+
+
+  <!-- MY PROFILE PAGE -->
+  <script type="text/template" id="user-profile-page">
+    <h3>My Profile</h3>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
