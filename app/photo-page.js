@@ -5,6 +5,7 @@ var photoPageView = Backbone.View.extend({
     PageMixin.iniPage(this);
   },
   render: function() {
+    console.log(this.model);
     this.$el.html( this.template );
   }  
 });
