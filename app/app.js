@@ -33,6 +33,10 @@ fire.onAuth(authDataCallback);
  * May need to transfer this to Model class instead
  * May include advance stuff in Model, parse method
  * */
+/*
+ * TODO
+ * find a way to wrap this in model so we can rerender when we call in action
+ * */
 if (isUserLoggedIn) {
   var u = localStorage.getItem('firebase:session::pab');
   var parseU = JSON.parse(u);

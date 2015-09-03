@@ -35,14 +35,15 @@ var loginForm = Backbone.View.extend({
       if (error) {
         console.log('err in creating user', error);
       } else {
-        var userData = {
-          email: authData.password.email
-        }
 
         // Navigate to index page
         Backbone.history.navigate('');
         var v = new indexPageView();
+
+        // re-render header view
         header.render();
+
+        // run userInfo
       }
     });
   }
