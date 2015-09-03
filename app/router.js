@@ -8,7 +8,8 @@ var AppRouter = Backbone.Router.extend({
     'create': 'createAccountPage',
     'about': 'aboutPage',
     'upload': 'uploadPhotoPage',
-    'user/:uid': 'userProfilePage'
+    'user/:uid': 'userProfilePage',
+    'photo/:id': 'photoPage'
   },
   indexPage: function() {
     if (!isUserLoggedIn) {
@@ -48,6 +49,14 @@ var AppRouter = Backbone.Router.extend({
       this.view = new loginPageView();
     } else {
       this.view = new userProfilePageView();
+    }
+  },
+  photoPage: function(id) {
+    if (!isUserLoggedIn) {
+      Backbone.history.navigate('login');
+      this.view = new loginPageView();
+    } else {
+      this.view = new photoPageView();
     }
   }
 });

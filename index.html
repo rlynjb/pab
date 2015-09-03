@@ -94,8 +94,14 @@
   </script>
 
   <script type="text/template" id="photo-item">
-    <img src="<%= file %>"/>
-    <h2><%= caption %></h2>
+    <a href="#photo/<%= id %>"><img src="<%= file %>"/></a>
+  </script>
+
+
+  <!-- PHOTO PAGE -->
+  <script type="text/template" id="photo-page">
+    <img src=""/>
+    <h2></h2>
   </script>
 
 
@@ -118,6 +124,7 @@
   <script src="app/create-new-user-page.js"></script>
   <script src="app/upload-photos.js"></script>
   <script src="app/user-profile-page.js"></script>
+  <script src="app/photo-page.js"></script>
   <script src="app/router.js"></script>
 </body>
 </html>
