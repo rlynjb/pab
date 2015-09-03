@@ -11,6 +11,8 @@ var loginPageView = Backbone.View.extend({
   }
 });
 
+// when user logs in, a firebase error is thrown
+// unless browser is refresh
 var loginForm = Backbone.View.extend({
   el: '#login-form-wrapper',
   template: _.template( $('#login-form').html() ),

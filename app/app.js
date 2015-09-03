@@ -26,18 +26,21 @@ function authDataCallback(authData) {
 fire.onAuth(authDataCallback);
 
 
-// Getting Authenticated User
+// Getting Authenticated User Data from localStorage
+// that came from Firebase library
 /*
  * TODO
  * May need to transfer this to Model class instead
  * May include advance stuff in Model, parse method
  * */
-var u = localStorage.getItem('firebase:session::pab');
-var parseU = JSON.parse(u);
-var userInfo = {
-  uid: parseU.uid,
-  profileImageURL: parseU.password.profileImageURL,
-  email: parseU.password.email
+if (isUserLoggedIn) {
+  var u = localStorage.getItem('firebase:session::pab');
+  var parseU = JSON.parse(u);
+  var userInfo = {
+    uid: parseU.uid,
+    profileImageURL: parseU.password.profileImageURL,
+    email: parseU.password.email
+  }
 }
 
 

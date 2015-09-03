@@ -88,9 +88,15 @@ var displayPhotoView = Backbone.View.extend({
      * item ID convention, it is not by index but by
      * random generated unique id
      * */
+    // there is a rendering issue with views need to refresh
     this.photos.each(function(model) {
-      var p = new photoItemView({ model: model });
-      this.$el.append( p.render().el );
+      var photoUID = model.get('uid');
+      if (userInfo.uid == photoUID) {
+        var p = new photoItemView({ model: model });
+        this.$el.append( p.render().el );
+      } else {
+        console.log('No photos from this user yet');
+      }
     }, this);
   }
 });
