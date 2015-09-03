@@ -43,7 +43,6 @@ var AppRouter = Backbone.Router.extend({
     }
   },
   userProfilePage: function(uid) {
-    console.log('from router', uid);
     if (!isUserLoggedIn) {
       Backbone.history.navigate('login');
       this.view = new loginPageView();

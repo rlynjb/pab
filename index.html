@@ -32,7 +32,6 @@
       <a href="#logout" class="btn btn-default">Log Out</a>
       <br>
       <br>
-      <img src="<%= profileImageURL %>"/>
       Hello <b><%= email %></b>
     <% } %>
   </script>
@@ -103,6 +102,9 @@
   <!-- MY PROFILE PAGE -->
   <script type="text/template" id="user-profile-page">
     <h3>My Profile</h3>
+    <img src="<%= profileImageURL %>"/><br>
+    Email: <%= email %><br>
+    UID: <%= uid %>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
