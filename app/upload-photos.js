@@ -1,10 +1,10 @@
 var Photo = Backbone.Model.extend({
-  urlRoot: apiUrl + '/photos.json'
+  urlRoot: apiUrl + '/photos'
 });
 
 var Photos = Backbone.Firebase.Collection.extend({
   model: Photo,
-  firebase: apiUrl + '/photos.json'
+  url: apiUrl + '/photos'
 });
 
 var uploadPhotoPageView = Backbone.View.extend({
@@ -16,22 +16,23 @@ var uploadPhotoPageView = Backbone.View.extend({
   render: function() {
     PageMixin.renderPage(this);
 
-    var f = new addPhotoView();
     var g = new displayPhotoView({ photos: new Photos() });
+    var f = new addPhotoView({ tpl: g, photos: new Photos() });
   }
 });
 
 var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
   template: _.template( $('#add-photo-form-content').html() ),
-  initialize: function() {
+  initialize: function(options) {
     // we are passing Photos Collection as a initialize param
     // rather then instantiating new Photos Collection object
     /*
      * Didnt take this approach, instantiated it instead.
      * I'm still abit confuse on how this approach works or will benefit
      * */
-    this.photos = new Photos();;
+    this.photos = options.photos;
+    this.tpl = options.tpl;
     this.render();
   },
   render: function() {
@@ -51,20 +52,22 @@ var addPhotoView = Backbone.View.extend({
     var rawImg = $('#imageUpload')[0].files[0];
     var reader = new FileReader();
     var tt = this;
+
     reader.onload = function() {
       var dataURL = reader.result;
 
       // set new photo to new instantiated Photo Model
-      var photo = new Photo({
+      var photo = {
         file: dataURL,
         caption: $('#imageCaption').val()
-      });
+      };
 
       // create new photo by calling Photos Collection create method
-      tt.photos.create(photo, { wait: true });
+      tt.photos.create(photo);
 
       // clears the form
       tt.el.reset();
+      tt.tpl.render();
     };
     reader.readAsDataURL(rawImg);
   }
@@ -75,7 +78,11 @@ var displayPhotoView = Backbone.View.extend({
   initialize: function(options) {
     this.photos = options.photos;
 
-    this.photos.fetch();
+    /*
+     * NOTE:
+     * using Backbonefire, we dont need to do fetch
+     * */
+    //this.photos.fetch();
     this.listenTo(this.photos, 'sync', this.render);
   },
   render: function() {
@@ -86,7 +93,6 @@ var displayPhotoView = Backbone.View.extend({
      * item ID convention, it is not by index but by
      * random generated unique id
      * */
-    console.log(this.photos);
     this.photos.each(function(model) {
       var p = new photoItemView({ model: model });
       this.$el.append( p.render().el );
