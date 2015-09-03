@@ -25,12 +25,6 @@ var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
   template: _.template( $('#add-photo-form-content').html() ),
   initialize: function(options) {
-    // we are passing Photos Collection as a initialize param
-    // rather then instantiating new Photos Collection object
-    /*
-     * Didnt take this approach, instantiated it instead.
-     * I'm still abit confuse on how this approach works or will benefit
-     * */
     this.photos = options.photos;
     this.tpl = options.tpl;
     this.render();
