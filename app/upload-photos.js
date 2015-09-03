@@ -52,6 +52,7 @@ var addPhotoView = Backbone.View.extend({
 
       // set new photo to new instantiated Photo Model
       var photo = {
+        uid: userInfo.uid,
         file: dataURL,
         caption: $('#imageCaption').val()
       };

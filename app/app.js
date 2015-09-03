@@ -16,6 +16,7 @@ var PageMixin = {
 function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    console.log(authData);
     isUserLoggedIn = true;
   } else {
     console.log("User is logged out");
@@ -26,6 +27,21 @@ function authDataCallback(authData) {
 fire.onAuth(authDataCallback);
 
 
+// Getting Authenticated User
+/*
+ * TODO
+ * May need to transfer this to Model class instead
+ * May include advance stuff in Model, parse method
+ * */
+var u = localStorage.getItem('firebase:session::pab');
+var parseU = JSON.parse(u);
+var userInfo = {
+  uid: parseU.uid,
+  profileImageURL: parseU.password.profileImageURL,
+  email: parseU.password.email
+}
+
+
 var headerView = Backbone.View.extend({
   el: '#header-inner',
   template: _.template( $('#header-inner-content').html() ),
@@ -34,16 +50,6 @@ var headerView = Backbone.View.extend({
   },
   render: function() {
     if (isUserLoggedIn) {
-      /*
-       * TODO
-       * May need to transfer this to Model class instead
-       * May include advance stuff in Model, parse method
-       * */
-      var u = localStorage.getItem('firebase:session::pab');
-      var parseU = JSON.parse(u);
-      var userInfo = {
-        email: parseU.password.email
-      }
       var tplContent = this.template(userInfo);
       this.$el.html( tplContent );
     } else {
