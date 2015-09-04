@@ -16,7 +16,9 @@ var AppRouter = Backbone.Router.extend({
       Backbone.history.navigate('login');
       this.view = new loginPageView();
     } else {
+      header.render();
       this.view = new indexPageView();
+      document.location.reload(true);
     }
   },
   loginPage: function() {

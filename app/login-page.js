@@ -37,16 +37,9 @@ var loginForm = Backbone.View.extend({
       if (error) {
         console.log('err in creating user', error);
       } else {
-
         // Navigate to index page
         Backbone.history.navigate('');
         var v = new indexPageView();
-
-        // re-render header view
-        header.render();
-
-        // reload page
-        document.location.reload(true);
       }
     });
   }
