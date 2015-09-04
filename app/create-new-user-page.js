@@ -26,7 +26,9 @@ var createNewUserForm = Backbone.View.extend({
   events: {
     'click #submitNewUser': 'submitNewUser'
   },
-  submitNewUser: function() {
+  submitNewUser: function(e) {
+    e.preventDefault();
+
     /* TODO
      * When new user is created
      * Also POST a new user json data to hold atleast UID and email

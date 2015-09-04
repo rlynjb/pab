@@ -26,7 +26,9 @@ var loginForm = Backbone.View.extend({
   events: {
     'click #submitUser': 'submitUser'
   },
-  submitUser: function() {
+  submitUser: function(e) {
+    e.preventDefault();
+
     fire.authWithPassword({
       email: $('#email').val(),
       password: $('#password').val()
