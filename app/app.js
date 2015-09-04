@@ -28,35 +28,29 @@ fire.onAuth(authDataCallback);
 
 // Getting Authenticated User Data from localStorage
 // that came from Firebase library
-/*
- * TODO
- * May need to transfer this to Model class instead
- * May include advance stuff in Model, parse method
- * */
-/*
- * TODO
- * find a way to wrap this in model so we can rerender when we call in action
- * */
-if (isUserLoggedIn) {
-  var u = localStorage.getItem('firebase:session::pab');
-  var parseU = JSON.parse(u);
-  var userInfo = {
-    uid: parseU.uid,
-    profileImageURL: parseU.password.profileImageURL,
-    email: parseU.password.email
+var userSettings = Backbone.Model.extend({
+  initialize: function() {
+    this.u = localStorage.getItem('firebase:session::pab');
+    this.parseU = JSON.parse(this.u);
+    this.info = {
+      uid: this.parseU.uid,
+      profileImageURL: this.parseU.password.profileImageURL,
+      email: this.parseU.password.email
+    }         
   }
-}
+});
 
 
 var headerView = Backbone.View.extend({
   el: '#header-inner',
   template: _.template( $('#header-inner-content').html() ),
-  initialize: function() {
+  initialize: function(options) {
+    this.user = options.user;
     this.render();
   },
   render: function() {
     if (isUserLoggedIn) {
-      var tplContent = this.template(userInfo);
+      var tplContent = this.template(this.user.info);
       this.$el.html( tplContent );
     } else {
       this.$el.html( this.template(this) );
@@ -64,7 +58,7 @@ var headerView = Backbone.View.extend({
     return this;
   }
 });
-var header = new headerView();
+var header = new headerView({ user: new userSettings() });
 
 var indexPageView = Backbone.View.extend({
   id: 'index-page',
