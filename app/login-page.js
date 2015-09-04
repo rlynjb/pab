@@ -44,7 +44,7 @@ var loginForm = Backbone.View.extend({
         header.render();
 
         // reload page
-        window.location.reload()
+        document.location.reload(true);
       }
     });
   }

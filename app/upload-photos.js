@@ -1,4 +1,4 @@
-var Photo = Backbone.Model.extend({
+var Photo = Backbone.Firebase.Model.extend({
   urlRoot: apiUrl + '/photos'
 });
 

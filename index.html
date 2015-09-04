@@ -100,8 +100,9 @@
 
   <!-- PHOTO PAGE -->
   <script type="text/template" id="photo-page">
-    <img src=""/>
-    <h2></h2>
+    <img src="<%= file %>"/>
+    <h2><%= caption %></h2>
+    user: <%= uid %>
   </script>
 
 
@@ -124,8 +125,7 @@
   <script src="app/create-new-user-page.js"></script>
   <script src="app/upload-photos.js"></script>
   <script src="app/user-profile-page.js"></script>
-  <!-- <script src="app/photo-page.js"></script>
-  -->
+  <script src="app/photo-page.js"></script>
   <script src="app/router.js"></script>
 </body>
 </html>

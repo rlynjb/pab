@@ -57,18 +57,7 @@ var AppRouter = Backbone.Router.extend({
       this.view = new loginPageView();
     } else {
       var pp = new Photo({ id: id });
-      pp.fetch({
-        success: function() {
-          console.log('ss');
-        },
-        error: function(collection, response, options) {
-          console.log('ee', response);
-        }
-      });
-      console.log(pp);
-      this.listenTo(pp, 'sync', function() {
-        this.view = new photoPageView({ model: pp });
-      });
+      this.view = new photoPageView({ model: pp });
     }
   }
 });
