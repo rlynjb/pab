@@ -43,7 +43,8 @@ var loginForm = Backbone.View.extend({
         // re-render header view
         header.render();
 
-        // run userInfo
+        // reload page
+        window.location.reload()
       }
     });
   }

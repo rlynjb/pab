@@ -1,10 +1,3 @@
-var User = Backbone.Model.extend({});
-
-var Users = Backbone.Firebase.Collection.extend({
-  model: User,
-  url: apiUrl + '/users'
-});
-
 var createPageView = Backbone.View.extend({
   id: 'create-account-page',
   template: _.template( $('#create-account-page').html() ),
@@ -23,8 +16,7 @@ var createPageView = Backbone.View.extend({
 var createNewUserForm = Backbone.View.extend({
   el: '#create-new-user-wrapper',
   template: _.template( $('#create-new-user-form').html() ),
-  initialize: function(options) {
-    this.users = options.users;
+  initialize: function() {
     this.render();
   },
   render: function() {
@@ -54,11 +46,6 @@ var createNewUserForm = Backbone.View.extend({
         console.log('err in creating user', error);
       } else {
         console.log('success, user id is ', userData.uid);
-
-        // Create a record of new user in pab api
-        console.log('userdata', userData);
-        tt.users.create(userData);
-
         // Navigate to index page
         Backbone.history.navigate('login');
         var l = new loginPageView();

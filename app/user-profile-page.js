@@ -6,6 +6,6 @@ var userProfilePageView = Backbone.View.extend({
     PageMixin.iniPage(this);
   },
   render: function() {
-    this.$el.html( this.template(this.user.info) );
+    this.$el.html( this.template( this.user.attributes ) );
   } 
 });

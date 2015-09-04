@@ -27,12 +27,12 @@
 
     <% if (isUserLoggedIn) { %>
       <a href="#users" class="btn btn-default">All Users</a>
-      <a href="#user/<%= uid %>" class="btn btn-default">My Profile</a>
+      <a href="#user" class="btn btn-default">My Profile</a>
       <a href="#upload" class="btn btn-default">Upload</a>
       <a href="#logout" class="btn btn-default">Log Out</a>
       <br>
       <br>
-      Hello <b><%= email %></b>
+      Hello <b><%= name %></b>
     <% } %>
   </script>
 
@@ -109,8 +109,8 @@
   <script type="text/template" id="user-profile-page">
     <h3>My Profile</h3>
     <img src="<%= profileImageURL %>"/><br>
-    Email: <%= email %><br>
-    UID: <%= uid %>
+    Email: <%= name %><br>
+    UID: <%= id %>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -124,7 +124,8 @@
   <script src="app/create-new-user-page.js"></script>
   <script src="app/upload-photos.js"></script>
   <script src="app/user-profile-page.js"></script>
-  <script src="app/photo-page.js"></script>
+  <!-- <script src="app/photo-page.js"></script>
+  -->
   <script src="app/router.js"></script>
 </body>
 </html>

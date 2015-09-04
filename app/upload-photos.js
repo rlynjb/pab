@@ -16,9 +16,8 @@ var uploadPhotoPageView = Backbone.View.extend({
   render: function() {
     PageMixin.renderPage(this);
 
-    var u = new userSettings();
-    var g = new displayPhotoView({ photos: new Photos(), user: u });
-    var f = new addPhotoView({ tpl: g, photos: new Photos(), user: u });
+    var g = new displayPhotoView({ photos: new Photos(), user: qw });
+    var f = new addPhotoView({ tpl: g, photos: new Photos(), user: qw });
   }
 });
 
@@ -54,7 +53,7 @@ var addPhotoView = Backbone.View.extend({
 
       // set new photo to new instantiated Photo Model
       var photo = {
-        uid: tt.user.info.uid,
+        uid: tt.user.attributes.id,
         file: dataURL,
         caption: $('#imageCaption').val()
       };
@@ -92,9 +91,12 @@ var displayPhotoView = Backbone.View.extend({
      * random generated unique id
      * */
     // there is a rendering issue with views need to refresh
+    // only load photos that belongs to current user
     this.photos.each(function(model) {
-      var photoUID = model.get('uid');
-      if (this.user.info.uid == photoUID) {
+      var photoUID = model.attributes.uid;
+      var currentUID = this.user.attributes.id;
+
+      if (photoUID === currentUID) {
         var p = new photoItemView({ model: model });
         this.$el.append( p.render().el );
       }

@@ -1,3 +1,7 @@
+/* ------------------------------------------------------------
+ * GLOBALS
+ * ------------------------------------------------------------
+ * */
 var fire = new Firebase('https://pab.firebaseio.com');
 var apiUrl = 'https://pab.firebaseio.com';
 var isUserLoggedIn = false;
@@ -12,6 +16,13 @@ var PageMixin = {
   }
 };
 
+/* ------------------------------------------------------------
+ * USER AUTHENTICATION
+ * ------------------------------------------------------------
+ * */
+/*
+ * Monitoring User Authentication State
+ * */
 // Callback which logs the current auth state
 function authDataCallback(authData) {
   if (authData) {
@@ -25,21 +36,56 @@ function authDataCallback(authData) {
 // Register the callback to be fired every time auth state changes
 fire.onAuth(authDataCallback);
 
+/* 
+ * Storing User Data
+ * */
+// Best explanation of whats going on in this code
+// http://stackoverflow.com/questions/27630574/storing-user-data-to-firebase-ends-up-storing-the-wrong-user
+var isNewUser = true;
 
-// Getting Authenticated User Data from localStorage
-// that came from Firebase library
-var userSettings = Backbone.Model.extend({
-  initialize: function() {
-    this.u = localStorage.getItem('firebase:session::pab');
-    this.parseU = JSON.parse(this.u);
-    this.info = {
-      uid: this.parseU.uid,
-      profileImageURL: this.parseU.password.profileImageURL,
-      email: this.parseU.password.email
-    }         
+fire.onAuth(function(authData) {
+  if (authData && isNewUser) {
+    fire.child('users').child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData),
+      profileImageURL: authData.password.profileImageURL
+    });
   }
 });
 
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+    case 'password':
+      return authData.password.email.replace(/@.*/, '');
+    case 'twitter':
+      return authData.twitter.displayName;
+    case 'facebook':
+      return authData.facebook.displayName;
+  }
+}
+
+// Store Data in User Model
+var User = Backbone.Firebase.Model.extend({
+  urlRoot: apiUrl + '/users'
+});
+
+var Users = Backbone.Firebase.Collection.extend({
+  model: User,
+  url: apiUrl + '/users'
+});
+
+// Get Logged in users' uid from localstorage
+// so we can use this to get data from api
+var localStor = JSON.parse( localStorage.getItem('firebase:session::pab') );
+var userUID = localStor.uid;
+
+var qw = new User({ id: userUID });
+qw.fetch();
+console.log('global', qw);
+
+
+// ------------------------------------------------------------
 
 var headerView = Backbone.View.extend({
   el: '#header-inner',
@@ -50,7 +96,7 @@ var headerView = Backbone.View.extend({
   },
   render: function() {
     if (isUserLoggedIn) {
-      var tplContent = this.template(this.user.info);
+      var tplContent = this.template( this.user.attributes );
       this.$el.html( tplContent );
     } else {
       this.$el.html( this.template(this) );
@@ -58,7 +104,7 @@ var headerView = Backbone.View.extend({
     return this;
   }
 });
-var header = new headerView({ user: new userSettings() });
+var header = new headerView({ user: qw });
 
 var indexPageView = Backbone.View.extend({
   id: 'index-page',
