@@ -37,6 +37,9 @@ var loginForm = Backbone.View.extend({
       if (error) {
         console.log('err in creating user', error);
       } else {
+        // this is a hack to reload user data variables
+        // in app.js
+        document.location.reload(true);
         // Navigate to index page
         Backbone.history.navigate('');
         var v = new indexPageView();

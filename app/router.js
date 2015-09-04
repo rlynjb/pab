@@ -18,7 +18,6 @@ var AppRouter = Backbone.Router.extend({
     } else {
       header.render();
       this.view = new indexPageView();
-      document.location.reload(true);
     }
   },
   loginPage: function() {
