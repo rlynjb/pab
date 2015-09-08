@@ -78,7 +78,6 @@ var Users = Backbone.Firebase.Collection.extend({
 // Get Logged in users' uid from localstorage
 // so we can use this to get data from api
 if (isUserLoggedIn) {
-  console.log('is this running');
   var localStor = JSON.parse( localStorage.getItem('firebase:session::pab') );
   var userUID = localStor.uid;
 

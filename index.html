@@ -127,6 +127,26 @@
     UID: <%= id %>
   </script>
 
+
+  <!-- USERS PAGE -->
+  <script type="text/template" id="users-page">
+    <h2>All pab users</h2>
+    <ul id="all-users-wrapper"></ul>
+  </script>
+
+  <script type="text/template" id="users-item">
+    <a href="#users/<%= id %>"><%= name %></a>
+    <br>
+    <button class="follow">Follow</button> <button class="unfollow">Unfollow</button>
+  </script>
+
+  <script type="text/template" id="users-profile-page">
+    <a href="#users">Go back to all Users</a>
+    <h3><%= name %></h3>
+    <img src="<%= profileImageURL %>"/><br>
+  </script>
+
+
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>
   <script src="bower_components/backbone/backbone-min.js"></script>
@@ -139,6 +159,7 @@
   <script src="app/upload-photos.js"></script>
   <script src="app/user-profile-page.js"></script>
   <script src="app/photo-page.js"></script>
+  <script src="app/users-page.js"></script>
   <script src="app/router.js"></script>
 </body>
 </html>

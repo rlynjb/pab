@@ -9,7 +9,9 @@ var AppRouter = Backbone.Router.extend({
     'about': 'aboutPage',
     'upload': 'uploadPhotoPage',
     'user': 'userProfilePage',
-    'photo/:id': 'photoPage'
+    'photo/:id': 'photoPage',
+    'users': 'usersPage',
+    'users/:id': 'usersProfilePage'
   },
   indexPage: function() {
     if (!isUserLoggedIn) {
@@ -59,6 +61,23 @@ var AppRouter = Backbone.Router.extend({
     } else {
       var pp = new Photo({ id: id });
       this.view = new photoPageView({ model: pp });
+    }
+  },
+  usersPage: function() {
+    if (!isUserLoggedIn) {
+      Backbone.history.navigate('login');
+      this.view = new loginPageView();
+    } else {
+      this.view = new usersPageView();
+    }
+  },
+  usersProfilePage: function(id) {
+    if (!isUserLoggedIn) {
+      Backbone.history.navigate('login');
+      this.view = new loginPageView();
+    } else {
+      var g = new User({ id: id });
+      this.view = new usersProfilePageView({ model: g });
     }
   }
 });
