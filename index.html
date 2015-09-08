@@ -103,6 +103,19 @@
     <img src="<%= file %>"/>
     <h2><%= caption %></h2>
     user: <%= uid %>
+
+    <hr>
+    <h3>Add Comment</h3>
+    <textarea id="photo-comment-text"></textarea>
+    <br/>
+    <button id="photo-comment-btn"> Comment </button>
+    <br>
+    <ul id="photo-comments"></ul>
+  </script>
+
+  <script type="text/template" id="photo-comment-item">
+    <%= username%> said:<br>
+    <%= text %>
   </script>
 
 
