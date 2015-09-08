@@ -33,6 +33,7 @@ var photoPageView = Backbone.View.extend({
 
     this.collection.create(data);
     $('#photo-comment-text').val('');
+    this.render();
   }
 });
 
