@@ -35,6 +35,7 @@ var userItemView = Backbone.View.extend({
     this.render();
   },
   render: function() {
+    console.log('this ran');
     var html = this.template( this.model.toJSON() );
     this.$el.html( html );
     return this;
@@ -43,17 +44,29 @@ var userItemView = Backbone.View.extend({
     'click .follow': 'followUser',
     'click .unfollow': 'unfollowUser'
   },
-  followUser: function() {
+  followUser: function(e) {
+    e.preventDefault();
     /*
-     * Figure out how to store this following Users to
-     * model attribute array
+     * TODO:
+     * this works but when All Users page is reloaded
+     * it removes Following added data in firebase
+     * might have something to do with firebase id
+     * */
+    /*
+     * TODO:
+     * also check for views render leaking
      * */
     var b = new User({ id: qw.id });
-    b.get('following');
-    var b2 = _.clone(b.get('following'));
-    b.set('following', b2);
-    b.save();
-    console.log('user i am ff: ', this.model.id);
+
+    b.get('following').push(this.model.id);
+    b.save({}, {
+      success: function(m, r, o) {
+        console.log('success', r.following);
+      },
+      error: function(m, x, o) {
+        console.log('error');
+      }
+    });
   }
 });
 

@@ -67,7 +67,12 @@ function getName(authData) {
 
 // Store Data in User Model
 var User = Backbone.Firebase.Model.extend({
-  urlRoot: apiUrl + '/users'
+  urlRoot: apiUrl + '/users',
+  defaults: function() {
+    return {
+      following: []
+    }
+  }
 });
 
 var Users = Backbone.Firebase.Collection.extend({
