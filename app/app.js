@@ -75,6 +75,12 @@ var Users = Backbone.Firebase.Collection.extend({
   url: apiUrl + '/users'
 });
 
+var Follow = Backbone.Model.extend({
+  url: function() {
+    return apiUrl + '/users/' + qw.id + '/following.json';
+  }
+});
+
 // Get Logged in users' uid from localstorage
 // so we can use this to get data from api
 if (isUserLoggedIn) {

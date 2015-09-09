@@ -19,8 +19,11 @@ var displayUsersView = Backbone.View.extend({
   },
   render: function() {
     this.users.each(function(model) {
-      var h = new userItemView({ model: model });
-      this.$el.append( h.render().el );
+      // do not display same user as logged in user
+      if (qw.id !== model.id) {
+        var h = new userItemView({ model: model });
+        this.$el.append( h.render().el );
+      }
     }, this);
   }
 });
@@ -39,6 +42,18 @@ var userItemView = Backbone.View.extend({
   events: {
     'click .follow': 'followUser',
     'click .unfollow': 'unfollowUser'
+  },
+  followUser: function() {
+    /*
+     * Figure out how to store this following Users to
+     * model attribute array
+     * */
+    var b = new User({ id: qw.id });
+    b.get('following');
+    var b2 = _.clone(b.get('following'));
+    b.set('following', b2);
+    b.save();
+    console.log('user i am ff: ', this.model.id);
   }
 });
 
