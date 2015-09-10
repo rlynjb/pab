@@ -82,9 +82,9 @@ var Users = Backbone.Firebase.Collection.extend({
 
 var Follow = Backbone.Model.extend({});
 
-var Follows = Backbone.Collection.extend({
+var Follows = Backbone.Firebase.Collection.extend({
   model: Follow,
-  url: apiUrl + '/follows.json'
+  url: apiUrl + '/follows'
 });
 
 // Get Logged in users' uid from localstorage

@@ -7,7 +7,7 @@ var usersPageView = Backbone.View.extend({
   render: function() {
     PageMixin.renderPage(this);
 
-    var u = new displayUsersView({ users: new Users() });
+    var u = new displayUsersView({ users: new Users(), follows: new Follows() });
   } 
 });
 
@@ -15,6 +15,7 @@ var displayUsersView = Backbone.View.extend({
   el: '#all-users-wrapper',
   initialize: function(options) {
     this.users = options.users;
+    this.follows = options.follows;
     this.listenTo(this.users, 'sync', this.render);
   },
   render: function() {
@@ -31,8 +32,11 @@ var displayUsersView = Backbone.View.extend({
 var userItemView = Backbone.View.extend({
   tagName: 'li',
   template: _.template( $('#users-item').html() ),
+  collection: new Follows(),
   initialize: function() {
     this.render();
+    this.collection.fetch();
+    this.listenTo(this.collection, 'sync', this.followUpdate);
   },
   render: function() {
     var html = this.template( this.model.toJSON() );
@@ -44,7 +48,27 @@ var userItemView = Backbone.View.extend({
     'click .unfollow': 'unfollowUser'
   },
   followUpdate: function() {
-    console.log('toggle');
+    /* NOTE: 
+     * this maybe a functional code
+     * search thru follow items
+     * if there is user id and this models id
+     * if there is, display unfollow
+     * if there is none, display follow
+     * */
+    var currentUser = qw.id,
+        followUser = this.model.id;
+
+    this.collection.each(function(model) {
+      var recCurrentUser = model.attributes.currentUser,
+          recFollowUser = model.attributes.followUser;
+
+      if (currentUser == recCurrentUser && followUser == recFollowUser) {
+        // display Unfollow
+        //this.template({tester : 'kirby'});
+      } else {
+        // display Follow
+      }
+    }, this);
   },
   followUser: function(e) {
     e.preventDefault();
@@ -55,11 +79,6 @@ var userItemView = Backbone.View.extend({
     }
     var f = new Follows();
     f.create(attr);
-
-    /*
-     * this function we'll toggle follow and unfollow button
-     * */
-    followUpdate();
 
     /*
      * NOTE:
