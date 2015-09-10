@@ -35,7 +35,6 @@ var userItemView = Backbone.View.extend({
     this.render();
   },
   render: function() {
-    console.log('this ran');
     var html = this.template( this.model.toJSON() );
     this.$el.html( html );
     return this;
@@ -44,29 +43,48 @@ var userItemView = Backbone.View.extend({
     'click .follow': 'followUser',
     'click .unfollow': 'unfollowUser'
   },
+  followUpdate: function() {
+    console.log('toggle');
+  },
   followUser: function(e) {
     e.preventDefault();
-    /*
-     * TODO:
-     * this works but when All Users page is reloaded
-     * it removes Following added data in firebase
-     * might have something to do with firebase id
-     * */
-    /*
-     * TODO:
-     * also check for views render leaking
-     * */
-    var b = new User({ id: qw.id });
 
+    var attr = {
+      currentUser: qw.id,
+      followUser: this.model.id
+    }
+    var f = new Follows();
+    f.create(attr);
+
+    /*
+     * this function we'll toggle follow and unfollow button
+     * */
+    followUpdate();
+
+    /*
+     * NOTE:
+     * Firebase does not seem to let me push items into a 
+     * nested child item, might need to create a Following data set
+     * instead of inserting it inside a users data
+     * */
+    //fire.child('users').child(qw.id).child('following').set(attr);
+    /*
+     * NOTE:
+     * Firebase doesnt allow numeric array due to collision
+     * Instead, it uses its unique keys generator
+     * Approach below is a no-no
+     * */
+    /*
+    var b = new User({ id: qw.id });
     b.get('following').push(this.model.id);
     b.save({}, {
       success: function(m, r, o) {
-        console.log('success', r.following);
+        console.log('success', r);
       },
       error: function(m, x, o) {
         console.log('error');
       }
-    });
+    });*/
   }
 });
 

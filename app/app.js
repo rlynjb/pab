@@ -48,7 +48,7 @@ fire.onAuth(function(authData) {
     fire.child('users').child(authData.uid).set({
       provider: authData.provider,
       name: getName(authData),
-      profileImageURL: authData.password.profileImageURL
+      profileImageURL: authData.password.profileImageURL,
     });
   }
 });
@@ -80,10 +80,11 @@ var Users = Backbone.Firebase.Collection.extend({
   url: apiUrl + '/users'
 });
 
-var Follow = Backbone.Model.extend({
-  url: function() {
-    return apiUrl + '/users/' + qw.id + '/following.json';
-  }
+var Follow = Backbone.Model.extend({});
+
+var Follows = Backbone.Collection.extend({
+  model: Follow,
+  url: apiUrl + '/follows.json'
 });
 
 // Get Logged in users' uid from localstorage
