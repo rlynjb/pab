@@ -33,21 +33,26 @@ var userItemView = Backbone.View.extend({
   tagName: 'li',
   template: _.template( $('#users-item').html() ),
   collection: new Follows(),
+  events: {
+    'click .Follow': 'followUser',
+    'click .Unfollow': 'unfollowUser'
+  },
   initialize: function() {
-    this.render();
+    /*
+     * TODO
+     * might need to combine followUpdate and render function
+     * so we can determine which data to display on template
+     * */
     this.collection.fetch();
-    this.listenTo(this.collection, 'sync', this.followUpdate);
+    this.listenTo(this.collection, 'change', this.render);
   },
   render: function() {
-    var html = this.template( this.model.toJSON() );
-    this.$el.html( html );
-    return this;
-  },
-  events: {
-    'click .follow': 'followUser',
-    'click .unfollow': 'unfollowUser'
-  },
-  followUpdate: function() {
+    var data = this.model.toJSON(),
+        tt = this,
+        currentUser = qw.id,
+        followUser = tt.model.id,
+        fStatus;
+
     /* NOTE: 
      * this maybe a functional code
      * search thru follow items
@@ -55,20 +60,27 @@ var userItemView = Backbone.View.extend({
      * if there is, display unfollow
      * if there is none, display follow
      * */
-    var currentUser = qw.id,
-        followUser = this.model.id;
-
     this.collection.each(function(model) {
       var recCurrentUser = model.attributes.currentUser,
           recFollowUser = model.attributes.followUser;
 
       if (currentUser == recCurrentUser && followUser == recFollowUser) {
         // display Unfollow
-        //this.template({tester : 'kirby'});
+        fStatus = 'Unfollow';
       } else {
         // display Follow
+        fStatus = 'Follow';
       }
-    }, this);
+    });
+
+    var html = this.template({
+      id: data.id,
+      name: data.name,
+      followStatus: fStatus
+    });
+
+    this.$el.html( html );
+    return this;
   },
   followUser: function(e) {
     e.preventDefault();
