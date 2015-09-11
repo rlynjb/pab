@@ -43,24 +43,25 @@ var userItemView = Backbone.View.extend({
      * might need to combine followUpdate and render function
      * so we can determine which data to display on template
      * */
-    this.collection.fetch();
     this.listenTo(this.collection, 'change', this.render);
   },
   render: function() {
-    var data = this.model.toJSON(),
-        tt = this,
+    var tt = this,
+        data = tt.model.toJSON(),
         currentUser = qw.id,
         followUser = tt.model.id,
-        fStatus;
+        fStatus = 'Follow';
 
     /* NOTE: 
-     * this maybe a functional code
      * search thru follow items
      * if there is user id and this models id
      * if there is, display unfollow
      * if there is none, display follow
      * */
     this.collection.each(function(model) {
+      // WHY IS THIS DOUBLING!!!
+      console.log(model);
+
       var recCurrentUser = model.attributes.currentUser,
           recFollowUser = model.attributes.followUser;
 
@@ -91,6 +92,8 @@ var userItemView = Backbone.View.extend({
     }
     var f = new Follows();
     f.create(attr);
+
+    this.render();
 
     /*
      * NOTE:
