@@ -16,6 +16,7 @@ var displayUsersView = Backbone.View.extend({
   initialize: function(options) {
     this.users = options.users;
     this.follows = options.follows;
+    this.parentView = this;
 
     this.listenTo(this.users, 'sync', null);
     this.listenTo(this.follows, 'sync', this.render);
@@ -48,7 +49,7 @@ var displayUsersView = Backbone.View.extend({
 
         // Print views template for user item
         console.log('fstatus: ', fStatus);
-        var h = new userItemView({ model: model, ffStatus: fStatus });
+        var h = new userItemView({ model: model, ffStatus: fStatus, pView: this.parentView });
         this.$el.append( h.render().el );
       }
     }, this);
@@ -64,6 +65,8 @@ var userItemView = Backbone.View.extend({
   },
   initialize: function(options) {
     this.fStatus = options.ffStatus;
+    this.parentView = options.pView;
+
     this.render();
   },
   render: function() {
@@ -78,6 +81,17 @@ var userItemView = Backbone.View.extend({
     this.$el.html( html );
     return this;
   },
+  unfollowUser: function(e) {
+    e.preventDefault();
+
+    /*
+     * TODO
+     * use attr below to remove item in follows collection
+     * search thru follows collection
+     * compare each item with attr
+     * use firebase api to remove item
+     * */
+  },
   followUser: function(e) {
     e.preventDefault();
 
@@ -89,10 +103,8 @@ var userItemView = Backbone.View.extend({
     f.create(attr);
 
     // re-render displayUserList
-    // TODO
-    // look if there is a way to reset views
-    var u = new displayUsersView({ users: new Users(), follows: new Follows() });
-    u.render();
+    $('#'+ this.parentView.el.id).html(' ');
+    this.parentView.render();
 
     /*
      * NOTE:
