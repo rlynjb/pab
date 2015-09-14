@@ -16,13 +16,39 @@ var displayUsersView = Backbone.View.extend({
   initialize: function(options) {
     this.users = options.users;
     this.follows = options.follows;
-    this.listenTo(this.users, 'sync', this.render);
+
+    this.listenTo(this.users, 'sync', null);
+    this.listenTo(this.follows, 'sync', this.render);
   },
   render: function() {
     this.users.each(function(model) {
       // do not display same user as logged in user
       if (qw.id !== model.id) {
-        var h = new userItemView({ model: model });
+        var currentUser = qw.id,
+            followUser = model.id,
+            fStatus = 'Follow';
+        console.log('model: ', model);
+
+        /* NOTE: 
+         * search thru follow items
+         * if there is user id and this models id
+         * if there is, display unfollow
+         * if there is none, display follow
+         * */
+        this.follows.each(function(fmodel) {
+          var recCurrentUser = fmodel.attributes.currentUser,
+              recFollowUser = fmodel.attributes.followUser;
+          console.log('fmodel: ', fmodel);
+
+          if (currentUser == recCurrentUser && followUser == recFollowUser) {
+            // display Unfollow
+            fStatus = 'Unfollow';
+          } 
+        }, this);
+
+        // Print views template for user item
+        console.log('fstatus: ', fStatus);
+        var h = new userItemView({ model: model, ffStatus: fStatus });
         this.$el.append( h.render().el );
       }
     }, this);
@@ -32,52 +58,21 @@ var displayUsersView = Backbone.View.extend({
 var userItemView = Backbone.View.extend({
   tagName: 'li',
   template: _.template( $('#users-item').html() ),
-  collection: new Follows(),
   events: {
     'click .Follow': 'followUser',
     'click .Unfollow': 'unfollowUser'
   },
-  initialize: function() {
-    /*
-     * TODO
-     * might need to combine followUpdate and render function
-     * so we can determine which data to display on template
-     * */
-    this.listenTo(this.collection, 'change', this.render);
+  initialize: function(options) {
+    this.fStatus = options.ffStatus;
+    this.render();
   },
   render: function() {
-    var tt = this,
-        data = tt.model.toJSON(),
-        currentUser = qw.id,
-        followUser = tt.model.id,
-        fStatus = 'Follow';
-
-    /* NOTE: 
-     * search thru follow items
-     * if there is user id and this models id
-     * if there is, display unfollow
-     * if there is none, display follow
-     * */
-    this.collection.each(function(model) {
-      // WHY IS THIS DOUBLING!!!
-      console.log(model);
-
-      var recCurrentUser = model.attributes.currentUser,
-          recFollowUser = model.attributes.followUser;
-
-      if (currentUser == recCurrentUser && followUser == recFollowUser) {
-        // display Unfollow
-        fStatus = 'Unfollow';
-      } else {
-        // display Follow
-        fStatus = 'Follow';
-      }
-    });
+    var data = this.model.toJSON();
 
     var html = this.template({
       id: data.id,
       name: data.name,
-      followStatus: fStatus
+      followStatus: this.fStatus
     });
 
     this.$el.html( html );
@@ -93,7 +88,11 @@ var userItemView = Backbone.View.extend({
     var f = new Follows();
     f.create(attr);
 
-    this.render();
+    // re-render displayUserList
+    // TODO
+    // look if there is a way to reset views
+    var u = new displayUsersView({ users: new Users(), follows: new Follows() });
+    u.render();
 
     /*
      * NOTE:
