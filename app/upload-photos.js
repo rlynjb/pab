@@ -1,4 +1,9 @@
-var Photo = Backbone.Firebase.Model.extend({
+/*
+ * NOTE
+ * when i assign Firebase.Model
+ * photo collection create doesnt work
+ * */
+var Photo = Backbone.Model.extend({
   urlRoot: apiUrl + '/photos'
 });
 
@@ -16,18 +21,18 @@ var uploadPhotoPageView = Backbone.View.extend({
   render: function() {
     PageMixin.renderPage(this);
 
-    var g = new displayPhotoView({ photos: new Photos(), user: qw });
-    var f = new addPhotoView({ tpl: g, photos: new Photos(), user: qw });
+    var g = new displayPhotoView();
+    var f = new addPhotoView({ displayPhotosTpl: g });
   }
 });
 
 var addPhotoView = Backbone.View.extend({
   el: '#add-photo-form',
   template: _.template( $('#add-photo-form-content').html() ),
+  collection: new Photos(),
   initialize: function(options) {
-    this.photos = options.photos;
-    this.tpl = options.tpl;
-    this.user = options.user;
+    this.displayPhotos = options.displayPhotosTpl;
+
     this.render();
   },
   render: function() {
@@ -50,20 +55,22 @@ var addPhotoView = Backbone.View.extend({
 
     reader.onload = function() {
       var dataURL = reader.result;
+      //var dataURL = 'hello';
 
       // set new photo to new instantiated Photo Model
       var photo = {
-        uid: tt.user.attributes.id,
+        uid: qw.id,
         file: dataURL,
         caption: $('#imageCaption').val()
-      };
+      }
+
+      console.log(photo);
 
       // create new photo by calling Photos Collection create method
-      tt.photos.create(photo);
+      tt.collection.create(photo);
 
-      // clears the form
       tt.el.reset();
-      tt.tpl.render();
+      tt.displayPhotos.render();
     };
     reader.readAsDataURL(rawImg);
   }
@@ -71,16 +78,9 @@ var addPhotoView = Backbone.View.extend({
 
 var displayPhotoView = Backbone.View.extend({
   el: '#photo-list',
+  collection: new Photos(),
   initialize: function(options) {
-    this.photos = options.photos;
-    this.user = options.user;
-
-    /*
-     * NOTE:
-     * using Backbonefire, we dont need to do fetch
-     * */
-    //this.photos.fetch();
-    this.listenTo(this.photos, 'sync', this.render);
+    this.listenTo(this.collection, 'sync', this.render);
   },
   render: function() {
     /*
@@ -92,9 +92,9 @@ var displayPhotoView = Backbone.View.extend({
      * */
     // there is a rendering issue with views need to refresh
     // only load photos that belongs to current user
-    this.photos.each(function(model) {
+    this.collection.each(function(model) {
       var photoUID = model.attributes.uid;
-      var currentUID = this.user.attributes.id;
+      var currentUID = qw.id;
 
       if (photoUID === currentUID) {
         var p = new photoItemView({ model: model });

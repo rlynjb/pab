@@ -117,17 +117,6 @@ var headerView = Backbone.View.extend({
 });
 var header = new headerView({ user: qw });
 
-var indexPageView = Backbone.View.extend({
-  id: 'index-page',
-  template: _.template( $('#index-page').html() ),
-  initialize: function() {
-    PageMixin.iniPage(this);
-  },
-  render: function() {
-    PageMixin.renderPage(this);
-  }
-});
-
 var aboutPageView = Backbone.View.extend({
   id: 'about-page',
   template: _.template( $('#about-page').html() ),
