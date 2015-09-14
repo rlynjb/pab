@@ -28,7 +28,7 @@ var displayUsersView = Backbone.View.extend({
         var currentUser = qw.id,
             followUser = model.id,
             fStatus = 'Follow';
-        console.log('model: ', model);
+        //console.log('model: ', model);
 
         /* NOTE: 
          * search thru follow items
@@ -39,16 +39,15 @@ var displayUsersView = Backbone.View.extend({
         this.follows.each(function(fmodel) {
           var recCurrentUser = fmodel.attributes.currentUser,
               recFollowUser = fmodel.attributes.followUser;
-          console.log('fmodel: ', fmodel);
+          //console.log('fmodel: ', fmodel);
 
           if (currentUser == recCurrentUser && followUser == recFollowUser) {
-            // display Unfollow
             fStatus = 'Unfollow';
           } 
         }, this);
 
         // Print views template for user item
-        console.log('fstatus: ', fStatus);
+        //console.log('fstatus: ', fStatus);
         var h = new userItemView({ model: model, ffStatus: fStatus, pView: this.parentView });
         this.$el.append( h.render().el );
       }
@@ -64,20 +63,20 @@ var userItemView = Backbone.View.extend({
     'click .Unfollow': 'unfollowUser'
   },
   initialize: function(options) {
+    this.ffs = new Follows();
     this.fStatus = options.ffStatus;
     this.parentView = options.pView;
+    this.attr = {
+      currentUser: qw.id,
+      followUser: this.model.id
+    }
 
     this.render();
   },
   render: function() {
     var data = this.model.toJSON();
 
-    var html = this.template({
-      id: data.id,
-      name: data.name,
-      followStatus: this.fStatus
-    });
-
+    var html = this.template({ id: data.id, name: data.name, followStatus: this.fStatus });
     this.$el.html( html );
     return this;
   },
@@ -91,16 +90,30 @@ var userItemView = Backbone.View.extend({
      * compare each item with attr
      * use firebase api to remove item
      * */
+    /*
+     * NOTE
+     * code below works but it throws model.attributes undefined on line 98
+     * might be a syncing/loading issue
+     * */
+    this.ffs.each(function(model) {
+      var recCurrentUser = model.attributes.currentUser,
+          recFollowUser = model.attributes.followUser,
+          recItemID = model.id;
+
+      if (this.attr.currentUser == recCurrentUser && this.attr.followUser == recFollowUser) {
+        fire.child('follows').child(recItemID).remove();
+      }
+
+      // re-render displayUserList
+      $('#'+ this.parentView.el.id).html(' ');
+      this.parentView.render();
+    }, this);
+
   },
   followUser: function(e) {
     e.preventDefault();
 
-    var attr = {
-      currentUser: qw.id,
-      followUser: this.model.id
-    }
-    var f = new Follows();
-    f.create(attr);
+    this.ffs.create(this.attr);
 
     // re-render displayUserList
     $('#'+ this.parentView.el.id).html(' ');
