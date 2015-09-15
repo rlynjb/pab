@@ -55,7 +55,6 @@ var addPhotoView = Backbone.View.extend({
 
     reader.onload = function() {
       var dataURL = reader.result;
-      //var dataURL = 'hello';
 
       // set new photo to new instantiated Photo Model
       var photo = {
@@ -63,8 +62,6 @@ var addPhotoView = Backbone.View.extend({
         file: dataURL,
         caption: $('#imageCaption').val()
       }
-
-      console.log(photo);
 
       // create new photo by calling Photos Collection create method
       tt.collection.create(photo);
@@ -83,13 +80,6 @@ var displayPhotoView = Backbone.View.extend({
     this.listenTo(this.collection, 'sync', this.render);
   },
   render: function() {
-    /*
-     * TODO
-     * might need to code custom ajax in Collection
-     * coz Model ID is undefined due to Firebase'
-     * item ID convention, it is not by index but by
-     * random generated unique id
-     * */
     // there is a rendering issue with views need to refresh
     // only load photos that belongs to current user
     this.collection.each(function(model) {
