@@ -113,17 +113,21 @@
 
   <!-- UPLOAD PHOTO PAGE -->
   <script type="text/template" id="upload-photo-page">
-    <h3>Upload Photos</h3>
-
     <form id="add-photo-form"></form>
-
+    <hr>
     <ul class="list-unstyled" id="photo-list"></ul>
   </script>
 
   <script type="text/template" id="add-photo-form-content">
-    <p>Photo: <input type="file" accept="image/" capture="camera" id="imageUpload" /></p>
-    <p>Caption: <input type="text" id="imageCaption" /></p>
-    <button id="uploadPhoto"> Upload </button>
+    <div class="form-group">
+      <label>Photo</label>
+      <input id='imageUpload' capture="camera" type='file' accept="image/"/>
+    </div>
+    <div class="form-group">
+      <label>Caption</label>
+      <input id='imageCaption' type='text' class='form-control' placeholder='Enter caption'/>
+    </div>
+    <button id="uploadPhoto" class="btn btn-default btn-block"> Upload </button>
   </script>
 
   <script type="text/template" id="photo-item">
@@ -144,8 +148,8 @@
       <br>
       <ul class="list-unstyled" id="photo-comments"></ul>
       <hr>
-      <textarea id="photo-comment-text"></textarea>
-      <button id="photo-comment-btn">Comment</button>
+      <textarea id="photo-comment-text" class="form-control"></textarea><br>
+      <button id="photo-comment-btn" class="btn btn-default btn-block">Comment</button>
     </div>
   </script>
 
