@@ -15,9 +15,10 @@ var photoPageView = Backbone.View.extend({
     this.listenTo(this.model, 'sync', this.render);
   },
   render: function() {
-    this.$el.html( this.template( this.model.attributes ) );
+    var html = this.template( this.model.toJSON() );
+    this.$el.html( html );
 
-    var h = new displayPhotoComments();
+    this.displayComments = new displayPhotoComments({ photoIdUrl: this.model.id });
   },
   events: {
     'click #photo-comment-btn': 'addComment'
@@ -31,26 +32,32 @@ var photoPageView = Backbone.View.extend({
       username: qw.attributes.name
     }
 
-    this.collection.create(data);
-    $('#photo-comment-text').val('');
-    this.render();
+    if (data.text == '') {
+      console.log('nope nope enter a comment');
+    } else {
+      this.collection.create(data);
+      $('#photo-comment-text').val('');
+      this.displayComments.render();
+    }
   }
 });
 
 var displayPhotoComments = Backbone.View.extend({
   el: '#photo-comments',
   collection: new photoComments(),
-  initialize: function() {
+  initialize: function(options) {
+    this.photoIdUrl = options.photoIdUrl;
+
     this.listenTo(this.collection, 'sync', this.render);
   },
   render: function() {
-    /*
-     * TODO
-     * populate comments that pertains to this photo
-     * */
     this.collection.each(function(model) {
-      var p = new photoCommentItem({ model: model });
-      this.$el.append( p.render().el );
+      var recPhotoID = model.attributes.photoID;
+
+      if (recPhotoID == this.photoIdUrl) {
+        var p = new photoCommentItem({ model: model });
+        this.$el.append( p.render().el );
+      }
     }, this);
   }
 });
