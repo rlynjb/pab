@@ -11,13 +11,13 @@ var photoPageView = Backbone.View.extend({
   collection: new photoComments(),
   initialize: function() {
     $('#content').html( this.el );
-    this.model.fetch();
+
     this.listenTo(this.model, 'sync', this.render);
   },
   render: function() {
     this.$el.html( this.template( this.model.attributes ) );
 
-    var h = new displayPhotoComments({ comments: new photoComments() });
+    var h = new displayPhotoComments();
   },
   events: {
     'click #photo-comment-btn': 'addComment'
@@ -39,12 +39,16 @@ var photoPageView = Backbone.View.extend({
 
 var displayPhotoComments = Backbone.View.extend({
   el: '#photo-comments',
-  initialize: function(options) {
-    this.comments = options.comments;
-    this.listenTo(this.comments, 'sync', this.render);
+  collection: new photoComments(),
+  initialize: function() {
+    this.listenTo(this.collection, 'sync', this.render);
   },
   render: function() {
-    this.comments.each(function(model) {
+    /*
+     * TODO
+     * populate comments that pertains to this photo
+     * */
+    this.collection.each(function(model) {
       var p = new photoCommentItem({ model: model });
       this.$el.append( p.render().el );
     }, this);

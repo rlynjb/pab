@@ -101,11 +101,10 @@
   <!-- PHOTO PAGE -->
   <script type="text/template" id="photo-page">
     <img src="<%= file %>"/>
-    <h2><%= caption %></h2>
-    user: <%= uid %>
+    <h4><%= caption %></h4>
 
     <hr>
-    <h3>Add Comment</h3>
+    <h5>Add Comment</h5>
     <textarea id="photo-comment-text"></textarea>
     <br/>
     <button id="photo-comment-btn"> Comment </button>
@@ -114,7 +113,7 @@
   </script>
 
   <script type="text/template" id="photo-comment-item">
-    <%= username%> said:<br>
+    <%= username %> said:<br>
     <%= text %>
   </script>
 
