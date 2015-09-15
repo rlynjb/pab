@@ -3,6 +3,10 @@
  * when i assign Firebase.Model
  * photo collection create doesnt work
  * */
+var PhotoP = Backbone.Firebase.Model.extend({
+  urlRoot: apiUrl + '/photos'
+});
+
 var Photo = Backbone.Model.extend({
   urlRoot: apiUrl + '/photos'
 });

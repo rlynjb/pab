@@ -59,7 +59,7 @@ var AppRouter = Backbone.Router.extend({
       Backbone.history.navigate('login');
       this.view = new loginPageView();
     } else {
-      var pp = new Photo({ id: id });
+      var pp = new PhotoP({ id: id });
       this.view = new photoPageView({ model: pp });
     }
   },
