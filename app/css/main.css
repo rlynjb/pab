@@ -22,3 +22,9 @@ b {
 .panel {
   padding: 2em;
 }
+
+#login-page,
+#create-new-user-form {
+  width: 80%;
+  margin: 0 auto;
+}

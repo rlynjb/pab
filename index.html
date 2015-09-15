@@ -63,28 +63,45 @@
 
   <!-- LOGIN PAGE -->
   <script type="text/template" id="login-page">
-    <h1> Login In </h1>
-    <form id="login-form-wrapper"></form>
-    <a href="#create">New User</a>
+    <div class="panel panel-default">
+      <h3 class='text-center'><b>pab</b></h3>
+      <form id="login-form-wrapper"></form>
+      <hr>
+      <a href="#create">Create New Account</a>
+    </div>
   </script>
 
   <script type="text/template" id="login-form">
-    <p>Username: <input id='email' type='text' /></p>
-    <p>Password: <input id='password' type='password' /></p>
-    <button id="submitUser" class="btn btn-default"> Login </button>
+    <div class="form-group">
+      <label>Email</label>
+      <input id='email' type='text' class='form-control' placeholder='Enter your email'>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id='password' type='password' class='form-control' placeholder='Enter your password'>
+    </div>
+    <button id="submitUser" class="btn btn-default btn-block"> Login </button>
   </script>
 
   <script type="text/template" id="create-account-page">
-    <h1> Create Account </h1>
-    <form id="create-new-user-wrapper"></form>
+    <div class="panel panel-default">
+      <h3 class="text-center"><b>Create Account</b></h3>
+      <form id="create-new-user-wrapper"></form>
+    </div>
   </script>
 
 
   <!-- NEW USER PAGE -->
   <script type="text/template" id="create-new-user-form">
-    <p>Email: <input id="email" type='text' /></p>
-    <p>Password: <input id="password" type='password' /></p>
-    <button id="submitNewUser" class="btn btn-default"> Create </button>
+    <div class="form-group">
+      <label>Email</label>
+      <input id='email' type='text' class='form-control' placeholder='Enter your email'>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id='password' type='password' class='form-control' placeholder='Enter your password'>
+    </div>
+    <button id="submitNewUser" class="btn btn-default btn-block"> Create </button>
   </script>
 
 
