@@ -5,47 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!--
-  <link rel="stylesheet" type="text/css" href="app/main.css">
-  -->
+  <link rel="stylesheet" type="text/css" href="app/css/main.css">
 </head>
 
 <body>
   <header>
     <div class="container">
-      <h1>pab <small> Backbone.js Photo-sharing app</small></h1>
+      <h2>pab <small><i>Backbone.js Photo-sharing app</i></small></h2>
       <br>
       <div id="header-inner"></div>
     </div>
   </header>
 
-  <div id="content" class="container"></div>
+  <section>
+    <div id="content" class="container"></div>
+  </section>
 
   <script type="text/template" id="header-inner-content">
-    <a href="/" class="btn btn-default">Home</a>
-    <a href="#about" class="btn btn-default">About</a>
-
     <% if (isUserLoggedIn) { %>
-      <a href="#users" class="btn btn-default">All Users</a>
-      <a href="#user" class="btn btn-default">My Profile</a>
-      <a href="#upload" class="btn btn-default">Upload</a>
-      <a href="#logout" class="btn btn-default">Log Out</a>
       <br>
-      <br>
-      Hello <b><%= name %></b>
+      <div class="text-center">
+        Hello <b><%= name %></b><br>
+        <a href="#about">About</a> | <a href="#logout">Log Out</a>
+      </div>
+      <br><br>
+      <div class="btn-group btn-group-lg btn-group-justified">
+        <a href="/" class="btn btn-default">
+          <i class="glyphicon glyphicon-home"></i>
+        </a>
+        <a href="#users" class="btn btn-default">
+          <i class="glyphicon glyphicon-search"></i>
+        </a>
+        <a href="#upload" class="btn btn-default">
+          <i class="glyphicon glyphicon-camera"></i>
+        </a>
+        <a href="#user" class="btn btn-default">
+          <i class="glyphicon glyphicon-user"></i>
+        </a>
+      </div>
     <% } %>
   </script>
 
 
   <!-- HOME PAGE -->
   <script type="text/template" id="index-page">
-    <h3>All Photos <small>from users ur following</small></h3>
-
-    <ul id="followed-photos"></ul>
+    <ul class="list-unstyled" id="followed-photos"></ul>
   </script>
 
   <script type="text/template" id="followed-photos-item">
-    <a href="#photo/<%= id %>"><img src="<%= file %>"/></a>
+    <div class="panel panel-default">
+      <h5><b>user who uploaded photo</b></h5>
+      <a href="#photo/<%= id %>"><img class="img-responsive" src="<%= file %>"/></a>
+      <h5>placeholder for caption</h5>
+    </div>
   </script>
 
 
@@ -87,9 +99,8 @@
     <h3>Upload Photos</h3>
 
     <form id="add-photo-form"></form>
-    <img id="imgOutput"/>
 
-    <ul id="photo-list"></ul>
+    <ul class="list-unstyled" id="photo-list"></ul>
   </script>
 
   <script type="text/template" id="add-photo-form-content">
@@ -99,44 +110,45 @@
   </script>
 
   <script type="text/template" id="photo-item">
-    <a href="#photo/<%= id %>"><img src="<%= file %>"/></a>
+    <div class="panel panel-default">
+      <h5><b>user who uploaded photo</b></h5>
+      <a href="#photo/<%= id %>"><img class="img-responsive" src="<%= file %>"/></a>
+      <h5>placeholder for caption</h5>
+    </div>
   </script>
 
 
   <!-- PHOTO PAGE -->
   <script type="text/template" id="photo-page">
-    <img src="<%= file %>"/>
-    <h4><%= caption %></h4>
-
-    <hr>
-    <h5>Add Comment</h5>
-    <textarea id="photo-comment-text"></textarea>
-    <br/>
-    <button id="photo-comment-btn"> Comment </button>
-    <br>
-    <ul id="photo-comments"></ul>
+    <div class="panel panel-default">
+      <h5><b>user who uploaded photo</b></h5>
+      <img class="img-responsive" src="<%= file %>"/>
+      <h5><%= caption %></h5>
+      <br>
+      <ul class="list-unstyled" id="photo-comments"></ul>
+      <hr>
+      <textarea id="photo-comment-text"></textarea>
+      <button id="photo-comment-btn">Comment</button>
+    </div>
   </script>
 
   <script type="text/template" id="photo-comment-item">
-    <b><%= username %></b> said:<br>
-    <%= text %>
-    <br>
+    <b><%= username %></b> <%= text %>
   </script>
 
 
   <!-- MY PROFILE PAGE -->
   <script type="text/template" id="user-profile-page">
     <h3>My Profile</h3>
-    <img src="<%= profileImageURL %>"/><br>
-    Email: <%= name %><br>
-    UID: <%= id %>
+    <img class="img-circle" src="<%= profileImageURL %>"/><br>
+    Email: <%= name %>
   </script>
 
 
   <!-- USERS PAGE -->
   <script type="text/template" id="users-page">
     <h2>All pab users</h2>
-    <ul id="all-users-wrapper"></ul>
+    <ul class="list-unstyled" id="all-users-wrapper"></ul>
   </script>
 
   <script type="text/template" id="users-item">
