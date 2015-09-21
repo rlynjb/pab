@@ -81,6 +81,7 @@ var displayPhotoView = Backbone.View.extend({
   el: '#photo-list',
   collection: new Photos(),
   initialize: function(options) {
+    this.collection.fetch();
     this.listenTo(this.collection, 'sync', this.render);
   },
   render: function() {
