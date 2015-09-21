@@ -18,8 +18,8 @@ var displayUsersView = Backbone.View.extend({
     this.follows = options.follows;
     this.parentView = this;
 
-    this.listenTo(this.users, 'sync', null);
-    this.listenTo(this.follows, 'sync', this.render);
+    this.listenTo(this.users, 'sync', this.render);
+    this.listenTo(this.follows, 'sync', null);
   },
   render: function() {
     this.users.each(function(model) {
