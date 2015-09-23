@@ -1,3 +1,7 @@
+/*
+ * Color scheme
+ * https://coolors.co/app/d8dbe2-a9bcd0-58a4b0-373f51-1b1b1e
+ * */
 header {
   background: #fff;
   border-bottom: 2px solid #edeeee;
@@ -15,10 +19,26 @@ body {
   width: 100%;
 }
 
+h1, h2, h3, h4. h5, h6 {
+  color: #1B1B1E;
+}
+
 b {
   color: #337ab7;
 }
 
 .panel {
   padding: 2em;
+}
+
+#login-page {
+  height: 100vh;
+  background: #D8DBE2;
+}
+#login-page h1 {
+  color: #58A4B0;
+  font-weight: 500;
+}
+#login-page .panel {
+  margin: 1em 0 0;
 }
