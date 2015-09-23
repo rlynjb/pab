@@ -104,13 +104,26 @@ var headerView = Backbone.View.extend({
     if (isUserLoggedIn) {
       var tplContent = this.template( this.user.attributes );
       this.$el.html( tplContent );
-    } else {
-      this.$el.html( this.template(this) );
     }
     return this;
   }
 });
 var header = new headerView({ user: qw });
+
+var footerView = Backbone.View.extend({
+  el: '#footer-wrapper',
+  template: _.template( $('#footer-content').html() ),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    if (isUserLoggedIn) {
+      this.$el.html( this.template );
+    }
+    return this;
+  }
+});
+var footer = new footerView();
 
 var aboutPageView = Backbone.View.extend({
   id: 'about-page',

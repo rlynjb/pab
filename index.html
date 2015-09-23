@@ -9,26 +9,27 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <h2>pab <small><i>Backbone.js Photo-sharing app</i></small></h2>
-      <br>
-      <div id="header-inner"></div>
-    </div>
-  </header>
+  <header id="header-inner"></header>
 
-  <section>
-    <div id="content" class="container"></div>
-  </section>
+  <section id="content"></section>
+
+  <footer id="footer-wrapper"></footer>
 
   <script type="text/template" id="header-inner-content">
-    <% if (isUserLoggedIn) { %>
-      <br>
+  <% if (isUserLoggedIn) { %>
+    <div class="container">
+      <h2>pab <small><i>Backbone.js Photo-sharing app</i></small></h2>
+
       <div class="text-center">
-        Hello <b><%= name %></b><br>
-        <a href="#about">About</a> | <a href="#logout">Log Out</a>
+        Hello <b><%= name %></b> | <a href="#about">About</a> | <a href="#logout">Log Out</a>
       </div>
-      <br><br>
+    </div>
+  <% } %>
+  </script>
+
+  <script type="text/template" id="footer-content">
+  <% if (isUserLoggedIn) { %>
+    <div class="container">
       <div class="btn-group btn-group-lg btn-group-justified">
         <a href="/" class="btn btn-default">
           <i class="glyphicon glyphicon-home"></i>
@@ -43,13 +44,16 @@
           <i class="glyphicon glyphicon-user"></i>
         </a>
       </div>
-    <% } %>
+    </div>
+  <% } %>
   </script>
 
 
   <!-- HOME PAGE -->
   <script type="text/template" id="index-page">
-    <ul class="list-unstyled" id="followed-photos"></ul>
+    <div class="container">
+      <ul class="list-unstyled" id="followed-photos"></ul>
+    </div>
   </script>
 
   <script type="text/template" id="followed-photos-item">
@@ -63,12 +67,14 @@
 
   <!-- LOGIN PAGE -->
   <script type="text/template" id="login-page">
+  <div class="container">
     <div class="panel panel-default">
       <h3 class='text-center'><b>pab</b></h3>
       <form id="login-form-wrapper"></form>
       <hr>
       <a href="#create">Create New Account</a>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="login-form">
@@ -93,6 +99,7 @@
 
   <!-- NEW USER PAGE -->
   <script type="text/template" id="create-new-user-form">
+  <div class="container">
     <div class="form-group">
       <label>Email</label>
       <input id='email' type='text' class='form-control' placeholder='Enter your email'>
@@ -102,20 +109,25 @@
       <input id='password' type='password' class='form-control' placeholder='Enter your password'>
     </div>
     <button id="submitNewUser" class="btn btn-default btn-block"> Create </button>
+  </div>
   </script>
 
 
   <!-- ABOUT THIS APP PAGE -->
   <script type="text/template" id="about-page">
+  <div class="container">
     <p>this photo-sharing app is for learning purpose only</p>
+  </div>
   </script>
 
 
   <!-- UPLOAD PHOTO PAGE -->
   <script type="text/template" id="upload-photo-page">
+  <div class="container">
     <form id="add-photo-form"></form>
     <hr>
     <ul class="list-unstyled" id="photo-list"></ul>
+  </div>
   </script>
 
   <script type="text/template" id="add-photo-form-content">
@@ -141,6 +153,7 @@
 
   <!-- PHOTO PAGE -->
   <script type="text/template" id="photo-page">
+  <div class="container">
     <div class="panel panel-default">
       <h5><b>user who uploaded photo</b></h5>
       <img class="img-responsive" src="<%= file %>"/>
@@ -151,6 +164,7 @@
       <textarea id="photo-comment-text" class="form-control"></textarea><br>
       <button id="photo-comment-btn" class="btn btn-default btn-block">Comment</button>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="photo-comment-item">
@@ -160,16 +174,20 @@
 
   <!-- MY PROFILE PAGE -->
   <script type="text/template" id="user-profile-page">
+  <div class="container">
     <h3>My Profile</h3>
     <img class="img-circle" src="<%= profileImageURL %>"/><br>
     Email: <%= name %>
+  </div>
   </script>
 
 
   <!-- USERS PAGE -->
   <script type="text/template" id="users-page">
+  <div class="container">
     <h2>All pab users</h2>
     <ul class="list-unstyled" id="all-users-wrapper"></ul>
+  </div>
   </script>
 
   <script type="text/template" id="users-item">
