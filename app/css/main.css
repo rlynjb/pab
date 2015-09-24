@@ -61,6 +61,15 @@ b {
   width: calc(100% * (1/3) - 10px - 1px)
 }
 
+#all-users-wrapper b {
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 1em;
+}
+#all-users-wrapper li {
+  margin-bottom: 1em;
+}
+
 .panel h5 {
   padding: 0 2em;
 }
@@ -74,6 +83,8 @@ b {
 #users-page,
 #upload-photo-page,
 #user-profile-page,
-#about-page {
+#users-profile-page,
+#about-page,
+#photo-page {
   padding: 2em 0 4em;
 }

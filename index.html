@@ -18,7 +18,7 @@
   <script type="text/template" id="header-inner-content">
   <% if (isUserLoggedIn) { %>
     <div class="container">
-      <h2>pab <small><i>Backbone.js Photo-sharing app</i></small></h2>
+      <h3><b>pab</b> <small><i>What if your fave fiction characters were on instagram?</i></small></h3>
 
       <div class="text-right">
         Hello <b><%= name %></b> | <a href="#about">About</a> | <a href="#logout">Log Out</a>
@@ -59,7 +59,7 @@
   <script type="text/template" id="followed-photos-item">
     <div class="panel panel-default">
       <h5><img width="30" class="img-circle" src="<%= userProfileImage %>"/> <b><%= username %></b></h5>
-      <a href="#photo/<%= id %>"><img class="img-responsive" src="<%= file %>"/></a>
+      <img class="img-responsive" src="<%= file %>"/>
       <h5><%= caption %></h5>
     </div>
   </script>
@@ -124,6 +124,7 @@
   <!-- ABOUT THIS APP PAGE -->
   <script type="text/template" id="about-page">
   <div class="container">
+    <h4>ABOUT</h4>
     <p>this photo-sharing app is for learning purpose only</p>
   </div>
   </script>
@@ -183,7 +184,7 @@
   <!-- MY PROFILE PAGE -->
   <script type="text/template" id="user-profile-page">
   <div class="container">
-    <h3>My Profile</h3>
+    <h4>MY PROFILE</h4>
     <img class="img-circle" src="<%= profileImageURL %>"/><br>
     Email: <%= name %>
   </div>
@@ -193,20 +194,22 @@
   <!-- USERS PAGE -->
   <script type="text/template" id="users-page">
   <div class="container">
-    <h2>All pab users</h2>
+    <h4>LOOK FOR PAB USERS TO FOLLOW</h4>
     <ul class="list-unstyled" id="all-users-wrapper"></ul>
   </div>
   </script>
 
   <script type="text/template" id="users-item">
-    <a href="#users/<%= id %>"><%= name %></a>
-    <button class="<%= followStatus %>"><%= followStatus %></button>
+    <a href="#users/<%= id %>"><img width="30" class="img-circle" src="<%= profileImageURL %>"/> <%= name %></a>
+    <b class="<%= followStatus %>"><%= followStatus %></b>
   </script>
 
   <script type="text/template" id="users-profile-page">
-    <a href="#users">Go back to all Users</a>
-    <h3><%= name %></h3>
-    <img src="<%= profileImageURL %>"/><br>
+    <div class="container">
+      <a href="#users">Go back to all Users</a>
+      <h3><%= name %></h3>
+      <img src="<%= profileImageURL %>"/>
+    </div>
   </script>
 
 

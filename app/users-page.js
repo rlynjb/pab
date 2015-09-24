@@ -75,7 +75,7 @@ var userItemView = Backbone.View.extend({
   render: function() {
     var data = this.model.toJSON();
 
-    var html = this.template({ id: data.id, name: data.name, followStatus: this.fStatus });
+    var html = this.template({ id: data.id, name: data.name, profileImageURL: data.profileImageURL, followStatus: this.fStatus });
     this.$el.html( html );
     return this;
   },

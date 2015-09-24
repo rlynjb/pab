@@ -11,7 +11,7 @@ var photoPageView = Backbone.View.extend({
   collection: new photoComments(),
   initialize: function() {
     $('#content').html( this.el );
-
+    this.model.fetch();
     this.listenTo(this.model, 'sync', this.render);
   },
   render: function() {
