@@ -33,7 +33,6 @@ var displayFollowedPhotos = Backbone.View.extend({
        */
       if (currentUser == recCurrentUser) {
         var fu = new User({ id: recFollowUser });
-        fu.fetch();
 
         this.listenTo(fu, 'sync', function() {
           var fName = fu.attributes.name;

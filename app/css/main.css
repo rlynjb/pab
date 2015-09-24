@@ -63,6 +63,7 @@ b {
 #index-page,
 #users-page,
 #upload-photo-page,
-#user-profile-page {
+#user-profile-page,
+#about-page {
   padding: 2em 0 4em;
 }
