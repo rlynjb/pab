@@ -6,6 +6,23 @@ header {
   background: #fff;
   border-bottom: 2px solid #edeeee;
 }
+header h2 {
+  margin: 0;
+}
+header .container {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+section {
+  padding: 2em 0 4em;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 
 body {
   background: #FAFAFA;
@@ -27,7 +44,7 @@ b {
   color: #337ab7;
 }
 
-.panel {
+#login-page .panel {
   padding: 2em;
 }
 
@@ -39,6 +56,11 @@ b {
   color: #58A4B0;
   font-weight: 500;
 }
-#login-page .panel {
-  margin: 1em 0 0;
+
+.panel h5 {
+  padding: 0 2em;
+}
+
+.panel #photo-comment-wrapper {
+  margin: 0 2em 2em;
 }

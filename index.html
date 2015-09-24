@@ -20,7 +20,7 @@
     <div class="container">
       <h2>pab <small><i>Backbone.js Photo-sharing app</i></small></h2>
 
-      <div class="text-center">
+      <div class="text-right">
         Hello <b><%= name %></b> | <a href="#about">About</a> | <a href="#logout">Log Out</a>
       </div>
     </div>
@@ -71,7 +71,13 @@
     <h1 class="text-center">pab</h1>
     <h4 class="text-center"><i>What if your fave fictional characters were on instagram?</i></h4>
     <div class="panel panel-default">
-      <h4 class='text-center'><b>pab</b></h4>
+      <p>This is a fictional app containing characters from various movies and tv shows</p>
+      <ul>
+        <li>View character's photos</li>
+        <li>Upload photos</li>
+        <li>Comment on photos</li>
+      </ul>
+      <br>
       <form id="login-form-wrapper"></form>
       <hr>
       <a href="#create">Create New Account</a>
@@ -160,11 +166,12 @@
       <h5><b>user who uploaded photo</b></h5>
       <img class="img-responsive" src="<%= file %>"/>
       <h5><%= caption %></h5>
-      <br>
       <ul class="list-unstyled" id="photo-comments"></ul>
       <hr>
-      <textarea id="photo-comment-text" class="form-control"></textarea><br>
-      <button id="photo-comment-btn" class="btn btn-default btn-block">Comment</button>
+      <form id="photo-comment-wrapper">
+        <textarea id="photo-comment-text" class="form-control"></textarea><br>
+        <button id="photo-comment-btn" class="btn btn-default btn-block">Comment</button>
+      </form>
     </div>
   </div>
   </script>
