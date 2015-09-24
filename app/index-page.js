@@ -26,16 +26,36 @@ var displayFollowedPhotos = Backbone.View.extend({
           currentUser = qw.id,
           recFollowUser = fmodel.attributes.followUser;
 
+      /* NOTE:
+       * checking follow collection if there is a record that
+       * matches my current ID to follow user record id and get
+       * IDs of what users im following
+       */
       if (currentUser == recCurrentUser) {
-        this.photos.each(function(pmodel) {
-          var followPhotoUID = pmodel.attributes.uid;
+        var fu = new User({ id: recFollowUser });
+        fu.fetch();
 
-          if (recFollowUser == followPhotoUID) {
-            //console.log('photo', pmodel);
-            var f = new followedPhotoItem({ model: pmodel });
-            this.$el.append( f.render().el );
-          }
+        this.listenTo(fu, 'sync', function() {
+          var fName = fu.attributes.name;
+          var fImage = fu.attributes.profileImageURL;
+
+          this.photos.each(function(pmodel) {
+            var followPhotoUID = pmodel.attributes.uid;
+
+            if (recFollowUser == followPhotoUID) {
+              var data = {
+                file: pmodel.attributes.file,
+                caption: pmodel.attributes.caption,
+                username: fName,
+                userProfileImage: fImage,
+                id: pmodel.id
+              }
+              var f = new followedPhotoItem({ model: data });
+              this.$el.append( f.render().el );
+            }
+          }, this);
         }, this);
+
       }
     }, this);
   }
@@ -48,7 +68,7 @@ var followedPhotoItem = Backbone.View.extend({
     this.render();
   },
   render: function() {
-    var html = this.template( this.model.toJSON() );
+    var html = this.template( this.model );
     this.$el.html( html );
     return this;
   }
