@@ -20,7 +20,7 @@ footer {
 }
 
 body {
-  background: #FAFAFA;
+  background: #D8DBE2;
 }
 
 .container {
@@ -45,7 +45,6 @@ b {
 
 #login-page {
   height: 100vh;
-  background: #D8DBE2;
 }
 #login-page h1 {
   color: #58A4B0;
